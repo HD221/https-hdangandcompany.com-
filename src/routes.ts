@@ -28,7 +28,7 @@ export const pages: Meta[] = [
     path: '/contact',
     title: 'Contact' + suffix,
     description:
-      'Phone, WhatsApp and email for H Dang and Company. Office at TF-29, Earth Alpha, Tandalja, Vasna, Vadodara 390 007.',
+      'Phone, WhatsApp and email for H Dang and Company. Office at Unit 509, Empire Edge, Gotri - Vasna Road, Near Nilambar Circle, Vadodara 390 007.',
   },
 ]
 

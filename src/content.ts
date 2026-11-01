@@ -9,7 +9,7 @@ export const firm = {
   whatsapp: 'https://wa.me/918849220024',
   email: 'hello@hdangandcompany.com',
   linkedin: 'https://www.linkedin.com/company/h-dang-and-company',
-  address: ['TF-29, Earth Alpha', 'Opp. Nilamber 1, Tandalja, Vasna', 'Vadodara 390 007', 'Gujarat, India'],
+  address: ['Unit 509, Empire Edge', 'Gotri - Vasna Road, Near Nilambar Circle', 'Vadodara, Gujarat, India 390 007'],
   url: 'https://hdangandcompany.com',
 }
 

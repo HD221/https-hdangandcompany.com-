@@ -21,7 +21,7 @@ const org = {
   founder: { '@type': 'Person', name: 'Hritik Dang' },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'TF-29, Earth Alpha, Opp. Nilamber 1, Tandalja, Vasna',
+    streetAddress: 'Unit 509, Empire Edge, Gotri - Vasna Road, Near Nilambar Circle',
     addressLocality: 'Vadodara',
     postalCode: '390007',
     addressRegion: 'Gujarat',
