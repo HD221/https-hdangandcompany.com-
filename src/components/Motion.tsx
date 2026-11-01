@@ -36,12 +36,14 @@ export function Picture({
   className?: string
   eager?: boolean
 }) {
-  const set = (ext: string) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
+  // Prefix with the build's base URL so images also load from a sub-folder preview.
+  const src = import.meta.env.BASE_URL.replace(/\/$/, '') + img.src
+  const set = (ext: string) => widths.map((w) => `${src}-${w}.${ext} ${w}w`).join(', ')
   return (
     <picture>
       <source type="image/avif" srcSet={set('avif')} sizes={sizes} />
       <img
-        src={`${img.src}-${widths[widths.length - 1]}.jpg`}
+        src={`${src}-${widths[widths.length - 1]}.jpg`}
         srcSet={set('jpg')}
         sizes={sizes}
         alt={img.alt}
