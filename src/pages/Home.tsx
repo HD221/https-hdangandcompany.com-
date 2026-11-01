@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { firm, founder, services } from '../content'
+import { firm, services } from '../content'
 import { ArrowLink } from '../components/Arrow'
-import { ClipReveal, Magnetic, Marquee, Picture, RotatingBadge, ScrollHighlight, SplitText } from '../components/Motion'
+import { Magnetic, Marquee, Picture, RotatingBadge, SplitText } from '../components/Motion'
 import HorizontalServices from '../components/HorizontalServices'
 import BreakEven from '../components/BreakEven'
 import ContactBand from '../components/ContactBand'
@@ -129,27 +129,6 @@ function Calculator() {
   )
 }
 
-function Founder() {
-  return (
-    <section aria-labelledby="founder" className="wrap grid gap-10 py-24 md:grid-cols-12 md:py-36">
-      <ClipReveal className="aspect-[4/5] md:col-span-5">
-        <Picture img={founder.image} widths={[480, 960]} sizes="(min-width: 768px) 40vw, 100vw" className="h-full w-full object-cover object-top" />
-      </ClipReveal>
-      <div className="self-center md:col-span-6 md:col-start-7">
-        <p className="eyebrow text-green">Who you will work with</p>
-        <SplitText id="founder" text="Hritik *Dang,* CA" className="display mt-4 text-6xl md:text-8xl" />
-        <ScrollHighlight
-          text="A qualified Chartered Accountant, investment banker and entrepreneur. You deal with him directly."
-          className="mt-8 font-serif text-3xl leading-tight md:text-4xl"
-        />
-        <p className="mt-8">
-          <ArrowLink to="/about" className="font-semibold">About the firm</ArrowLink>
-        </p>
-      </div>
-    </section>
-  )
-}
-
 export default function Home() {
   return (
     <>
@@ -160,7 +139,6 @@ export default function Home() {
       <HorizontalServices />
       <WhyUs />
       <Calculator />
-      <Founder />
       <ContactBand />
     </>
   )
