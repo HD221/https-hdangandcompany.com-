@@ -42,7 +42,7 @@ export default function ContactBand({ heading = "Let's talk." }: { heading?: str
                 Book a call <span className="arrow" aria-hidden="true">→</span>
               </a>
             </Magnetic>
-            <RotatingBadge text="Free estimate · Chartered Accountants · " className="hidden h-36 w-36 text-lime sm:block">
+            <RotatingBadge text="Chartered Accountants · Vadodara · " className="hidden h-36 w-36 text-lime sm:block">
               <span className="display text-4xl italic text-paper">₹</span>
             </RotatingBadge>
           </div>

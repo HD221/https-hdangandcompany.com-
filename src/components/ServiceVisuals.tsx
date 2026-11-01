@@ -159,29 +159,25 @@ function CashFlow({ tone }: { tone: Tone }) {
 /* 04 Bookkeeping: a T-account where debits and credits balance */
 function Ledger({ tone }: { tone: Tone }) {
   const c = palette(tone)
-  const dr = ['1,20,000', '2,50,000', '50,000']
-  const cr = ['1,80,000', '90,000', '1,50,000']
+  const dr = [120, 150, 90]
+  const cr = [140, 100, 120]
   return (
-    <Frame label="A T-account for cash with debits and credits that balance at 4,20,000">
+    <Frame label="A T-account for cash where total debits equal total credits">
       <motion.text x={200} y={34} textAnchor="middle" fill={c.text} fontSize={18} fontWeight={700} variants={rise(0)}>
         Cash A/c
       </motion.text>
       <motion.path d="M40,50 L360,50 M200,50 L200,250" stroke={c.line} strokeWidth={2.5} fill="none" variants={draw(0.1, 0.9)} />
       <motion.text x={52} y={74} fill={c.text} fontSize={13} opacity={0.7} variants={rise(0.4)}>Dr</motion.text>
       <motion.text x={348} y={74} textAnchor="end" fill={c.text} fontSize={13} opacity={0.7} variants={rise(0.4)}>Cr</motion.text>
-      {dr.map((v, i) => (
-        <motion.text key={'d' + i} x={184} y={110 + i * 34} textAnchor="end" fill={c.text} fontSize={17} variants={{ hidden: { x: -30, opacity: 0 }, show: { x: 0, opacity: 1, transition: { duration: 0.5, ease, delay: 0.6 + i * 0.25 } } }}>
-          ₹{v}
-        </motion.text>
+      {dr.map((w, i) => (
+        <motion.rect key={'d' + i} x={188 - w} y={96 + i * 34} width={w * 0.9} height={14} fill={c.faint} variants={{ hidden: { scaleX: 0 }, show: { scaleX: 1, transition: { duration: 0.6, ease, delay: 0.6 + i * 0.25 } } }} style={{ transformOrigin: `188px ${103 + i * 34}px` }} />
       ))}
-      {cr.map((v, i) => (
-        <motion.text key={'c' + i} x={348} y={110 + i * 34} textAnchor="end" fill={c.text} fontSize={17} variants={{ hidden: { x: 30, opacity: 0 }, show: { x: 0, opacity: 1, transition: { duration: 0.5, ease, delay: 0.72 + i * 0.25 } } }}>
-          ₹{v}
-        </motion.text>
+      {cr.map((w, i) => (
+        <motion.rect key={'c' + i} x={348 - w * 0.9} y={96 + i * 34} width={w * 0.9} height={14} fill={c.faint} variants={{ hidden: { scaleX: 0 }, show: { scaleX: 1, transition: { duration: 0.6, ease, delay: 0.72 + i * 0.25 } } }} style={{ transformOrigin: `348px ${103 + i * 34}px` }} />
       ))}
       <motion.path d="M90,200 L188,200 M90,236 L188,236 M90,240 L188,240 M250,200 L348,200 M250,236 L348,236 M250,240 L348,240" stroke={c.line} strokeWidth={1.2} variants={draw(1.5, 0.6)} />
-      <motion.text x={184} y={225} textAnchor="end" fill={c.text} fontSize={18} fontWeight={700} variants={rise(1.7)}>₹4,20,000</motion.text>
-      <motion.text x={348} y={225} textAnchor="end" fill={c.text} fontSize={18} fontWeight={700} variants={rise(1.8)}>₹4,20,000</motion.text>
+      <motion.rect x={90} y={210} width={98} height={16} fill={c.accent} stroke={c.stroke} variants={rise(1.7)} />
+      <motion.rect x={250} y={210} width={98} height={16} fill={c.accent} stroke={c.stroke} variants={rise(1.8)} />
       <motion.g variants={pop(2.1)} style={{ transformOrigin: '200px 272px' }}>
         <rect x={150} y={258} width={100} height={28} fill={c.accent} stroke={c.stroke} strokeWidth={1.5} />
         <text x={200} y={277} textAnchor="middle" fill={c.accentInk} fontSize={14} fontWeight={700}>
@@ -197,10 +193,10 @@ function Chain({ tone }: { tone: Tone }) {
   const c = palette(tone)
   const reduce = useReducedMotion()
   const blocks = [
-    { x: 20, y: 120, hash: '0x3f9a' },
-    { x: 115, y: 90, hash: '0xa41c' },
-    { x: 210, y: 120, hash: '0x7be2' },
-    { x: 305, y: 90, hash: '0xc05d' },
+    { x: 20, y: 120, hash: 'a' },
+    { x: 115, y: 90, hash: 'b' },
+    { x: 210, y: 120, hash: 'c' },
+    { x: 305, y: 90, hash: 'd' },
   ]
   return (
     <Frame label="Four blocks linked in a chain, each carrying the hash of the one before">
@@ -224,9 +220,7 @@ function Chain({ tone }: { tone: Tone }) {
           <text x={b.x + 37.5} y={b.y + 32} textAnchor="middle" fill={c.text} fontSize={13} fontWeight={700}>
             Block {i + 1}
           </text>
-          <text x={b.x + 37.5} y={b.y + 52} textAnchor="middle" fill={c.text} fontSize={12} opacity={0.7} fontFamily="ui-monospace, monospace">
-            {b.hash}
-          </text>
+          <rect x={b.x + 14} y={b.y + 46} width={47} height={6} fill={c.faint} />
         </motion.g>
       ))}
       <motion.text x={200} y={250} textAnchor="middle" fill={c.text} fontSize={13} opacity={0.75} variants={rise(1.6)}>

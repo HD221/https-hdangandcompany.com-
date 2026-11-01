@@ -75,7 +75,7 @@ function Hero() {
             <Picture img={hero} widths={[640]} sizes="(min-width: 768px) 40vw, 100vw" eager className="aspect-[4/5] w-full object-cover" />
           </motion.div>
         </motion.div>
-        <RotatingBadge text="Free estimate · Book a call · " className="absolute -bottom-10 -left-6 h-32 w-32 rounded-full bg-lime text-ink md:-left-16 md:h-40 md:w-40">
+        <RotatingBadge text="Book a call · Chartered Accountants · " className="absolute -bottom-10 -left-6 h-32 w-32 rounded-full bg-lime text-ink md:-left-16 md:h-40 md:w-40">
           <a href={firm.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Book a call on WhatsApp" className="display text-4xl">
             →
           </a>
@@ -85,7 +85,7 @@ function Hero() {
   )
 }
 
-const strengths = ['Always on time', 'Hard working', '24/7 availability', 'Profitability', 'Confidential', 'Accurate']
+const strengths = ['Always on time', 'Hard working', 'Always reachable', 'Profitability', 'Confidential', 'Accurate']
 
 function WhyUs() {
   const ref = useRef<HTMLElement>(null)

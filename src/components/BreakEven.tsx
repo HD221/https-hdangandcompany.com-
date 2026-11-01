@@ -4,44 +4,25 @@ import { motion, useReducedMotion } from 'framer-motion'
 const inr = (n: number) => '₹' + Math.round(n).toLocaleString('en-IN')
 const num = (n: number) => Math.round(n).toLocaleString('en-IN')
 
-function Slider({
-  label,
-  value,
-  min,
-  max,
-  step,
-  onChange,
-}: {
-  label: string
-  value: number
-  min: number
-  max: number
-  step: number
-  onChange: (v: number) => void
-}) {
+function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   const id = useId()
-  const pct = ((value - min) / (max - min)) * 100
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-4">
-        <label htmlFor={id} className="text-[0.95rem] text-paper/75">
-          {label}
-        </label>
-        <output htmlFor={id} className="display text-3xl tabular-nums text-paper">
-          {inr(value)}
-        </output>
+      <label htmlFor={id} className="text-[0.95rem] text-paper/75">
+        {label}
+      </label>
+      <div className="mt-2 flex items-baseline gap-2 border-b-2 border-paper/30 transition-colors focus-within:border-lime">
+        <span className="display text-3xl text-paper/60" aria-hidden="true">₹</span>
+        <input
+          id={id}
+          inputMode="decimal"
+          autoComplete="off"
+          value={value}
+          onChange={(e) => onChange(e.target.value.replace(/[^\d.]/g, ''))}
+          className="display w-full bg-transparent py-2 text-3xl tabular-nums text-paper outline-none placeholder:text-paper/30"
+          placeholder="Enter amount"
+        />
       </div>
-      <input
-        id={id}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="be-range mt-3 w-full"
-        style={{ ['--pct' as string]: `${pct}%` }}
-      />
     </div>
   )
 }
@@ -49,12 +30,16 @@ function Slider({
 /** Interactive break-even calculator with a live cost/revenue chart. */
 export default function BreakEven() {
   const reduce = useReducedMotion()
-  const [fixed, setFixed] = useState(300000)
-  const [price, setPrice] = useState(1200)
-  const [variable, setVariable] = useState(700)
+  const [f, setF] = useState('')
+  const [p, setP] = useState('')
+  const [v, setV] = useState('')
+  const fixed = Number(f) || 0
+  const price = Number(p) || 0
+  const variable = Number(v) || 0
+  const filled = fixed > 0 && price > 0 && v !== ''
 
   const margin = price - variable
-  const ok = margin > 0
+  const ok = filled && margin > 0
   const units = ok ? fixed / margin : 0
   const revenue = units * price
 
@@ -63,7 +48,7 @@ export default function BreakEven() {
   const H = 340
   const pad = { l: 12, r: 12, t: 16, b: 28 }
   const maxQ = ok ? Math.max(units * 2, 10) : 1000
-  const maxY = Math.max(price * maxQ, fixed + variable * maxQ) * 1.05
+  const maxY = Math.max(price * maxQ, fixed + variable * maxQ, 1) * 1.05
   const sx = (q: number) => pad.l + (q / maxQ) * (W - pad.l - pad.r)
   const sy = (v: number) => H - pad.b - (v / maxY) * (H - pad.t - pad.b)
   const revPath = `M${sx(0)},${sy(0)} L${sx(maxQ)},${sy(price * maxQ)}`
@@ -73,15 +58,17 @@ export default function BreakEven() {
   return (
     <div className="grid gap-10 md:grid-cols-12 md:gap-12">
       <div className="space-y-8 md:col-span-5">
-        <Slider label="Fixed costs per month (rent, salaries)" value={fixed} min={50000} max={1500000} step={10000} onChange={setFixed} />
-        <Slider label="Selling price per unit" value={price} min={100} max={5000} step={50} onChange={setPrice} />
-        <Slider label="Variable cost per unit" value={variable} min={50} max={4500} step={50} onChange={setVariable} />
-        <p className="text-[0.85rem] text-paper/60">Example figures. Move the sliders to match your business.</p>
+        <Field label="Fixed costs per month (rent, salaries)" value={f} onChange={setF} />
+        <Field label="Selling price per unit" value={p} onChange={setP} />
+        <Field label="Variable cost per unit" value={v} onChange={setV} />
+        <p className="text-[0.85rem] text-paper/70">Your figures stay in your browser. Nothing is sent to us.</p>
       </div>
 
       <div className="md:col-span-7">
         <div aria-live="polite" className="flex flex-wrap items-end gap-x-10 gap-y-4">
-          {ok ? (
+          {!filled ? (
+            <p className="display max-w-[22ch] text-4xl text-paper/80 md:text-5xl">Enter your three figures to see where you break even.</p>
+          ) : ok ? (
             <>
               <div>
                 <p className="text-[0.9rem] text-paper/70">You break even at</p>
@@ -124,10 +111,7 @@ export default function BreakEven() {
             </>
           )}
           <text x={pad.l} y={H - 8} fill="currentColor" fillOpacity={0.6} fontSize={12}>
-            0 units
-          </text>
-          <text x={W - pad.r} y={H - 8} fill="currentColor" fillOpacity={0.6} fontSize={12} textAnchor="end">
-            {num(maxQ)} units
+            Units sold
           </text>
         </svg>
         <div className="mt-3 flex gap-6 text-[0.85rem] text-paper/75">
