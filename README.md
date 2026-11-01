@@ -31,8 +31,13 @@ All text lives in `src/content.ts` (services, founder, contact details) and `src
 | Token | Hex | Use |
 |---|---|---|
 | paper | `#F7F5F1` | background |
+| green-ink | `#1B4239` | darker green panels |
 | ink | `#212121` | text |
 | green | `#2E6B5C` | accent, contact band |
 | lime | `#C3F18A` | the one call to action on green |
 
-Type: Manrope (text and display), Cormorant Garamond (wordmark and serif accents).
+Type: Cormorant Garamond (headings, matches the logo) and Hanken Grotesk (body text).
+
+Motion lives in `src/components/Motion.tsx` (word reveals, scroll highlights, ticker, magnetic buttons, clip reveals),
+`HorizontalServices.tsx` (pinned sideways scroll), `ServiceVisuals.tsx` (animated service diagrams) and
+`BreakEven.tsx` (calculator). Everything respects the reduced-motion setting.

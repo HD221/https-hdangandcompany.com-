@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { firm, services } from '../content'
+import { Magnetic, SplitText } from '../components/Motion'
 
 const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Earth Alpha, Tandalja, Vasna, Vadodara 390007')
 
@@ -15,7 +16,7 @@ function Field({ label, name, type = 'text', required, autoComplete }: { label: 
         type={type}
         required={required}
         autoComplete={autoComplete}
-        className="mt-1 block w-full border-0 border-b border-ink/40 bg-transparent px-0 py-2.5 text-lg focus:border-green focus:outline-none focus:ring-0"
+        className="mt-1 block w-full border-0 border-b-2 border-ink/25 bg-transparent px-0 py-2.5 text-lg transition-colors duration-300 focus:border-green focus:outline-none"
       />
     </label>
   )
@@ -44,13 +45,13 @@ export default function Contact() {
   return (
     <section className="wrap grid gap-16 pb-24 pt-14 md:grid-cols-12 md:pb-32 md:pt-24">
       <div className="md:col-span-5">
-        <p className="mb-8 text-[0.8rem] font-medium uppercase tracking-[0.25em] text-green">Contact</p>
-        <h1 className="display text-[2.9rem] sm:text-6xl lg:text-[5rem]">Pick up the phone or come to the office.</h1>
+        <p className="eyebrow text-green">Contact</p>
+        <SplitText as="h1" onMount text="Say *hello.*" className="display mt-6 text-[4.5rem] sm:text-8xl lg:text-[10rem]" />
 
         <dl className="mt-14 space-y-8">
           <div>
             <dt className="text-[0.9rem] text-muted">Phone and WhatsApp</dt>
-            <dd className="mt-1 text-2xl">
+            <dd className="mt-1 display text-4xl">
               <a href={firm.phoneHref} className="hover:underline underline-offset-4">{firm.phoneDisplay}</a>
             </dd>
             <dd className="mt-2">
@@ -89,9 +90,8 @@ export default function Contact() {
         </dl>
       </div>
 
-      <div className="md:col-span-6 md:col-start-7 md:pt-40">
-        <h2 className="display text-3xl md:text-4xl">Or write to us here</h2>
-        <p className="mt-3 text-muted">We will reply by email or phone.</p>
+      <div className="md:col-span-6 md:col-start-7 md:pt-48">
+        <h2 className="display text-4xl md:text-5xl">Or write to us</h2>
         {state === 'sent' ? (
           <p role="status" className="mt-10 border-t border-green pt-6 text-xl">
             Thank you. Your message has reached us and we will be in touch.
@@ -118,6 +118,7 @@ export default function Contact() {
               <span className="text-[0.9rem] text-muted">Message</span>
               <textarea name="message" rows={5} required className="mt-1 block w-full resize-y border-0 border-b border-ink/40 bg-transparent px-0 py-2.5 text-lg focus:border-green focus:outline-none" />
             </label>
+            <Magnetic>
             <button
               type="submit"
               disabled={state === 'sending'}
@@ -125,6 +126,7 @@ export default function Contact() {
             >
               {state === 'sending' ? 'Sending' : 'Send message'} <span className="arrow" aria-hidden="true">→</span>
             </button>
+            </Magnetic>
             {state === 'error' && (
               <p role="alert" className="text-[0.95rem]">
                 That did not go through. Please email {firm.email} or call {firm.phoneDisplay}.

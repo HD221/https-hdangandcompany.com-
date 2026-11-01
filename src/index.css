@@ -1,33 +1,12 @@
 @import 'tailwindcss';
 
-@font-face {
-  font-family: 'Manrope Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 200 800;
-  src: url('/fonts/manrope-latin.woff2') format('woff2-variations');
-}
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 500;
-  src: url('/fonts/cormorant-500.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 600;
-  src: url('/fonts/cormorant-600.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: italic;
-  font-display: swap;
-  font-weight: 500;
-  src: url('/fonts/cormorant-500-italic.woff2') format('woff2');
-}
+/* Fonts: Cormorant Garamond echoes the firm's serif logo; Hanken Grotesk keeps body text crisp. */
+@font-face { font-family: 'Hanken Grotesk'; font-style: normal; font-display: swap; font-weight: 100 900; src: url('/fonts/hanken-grotesk.woff2') format('woff2-variations'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-display: block; font-weight: 500; src: url('/fonts/cormorant-500.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-display: block; font-weight: 600; src: url('/fonts/cormorant-600.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-display: block; font-weight: 700; src: url('/fonts/cormorant-700.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-display: block; font-weight: 500; src: url('/fonts/cormorant-500-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-display: block; font-weight: 600; src: url('/fonts/cormorant-600-italic.woff2') format('woff2'); }
 
 @theme {
   --color-paper: #f7f5f1;
@@ -36,9 +15,10 @@
   --color-rule: #d9d6cf;
   --color-green: #2e6b5c;
   --color-green-deep: #24574b;
+  --color-green-ink: #1b4239;
   --color-lime: #c3f18a;
 
-  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -56,52 +36,43 @@
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.7;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
-  ::selection {
-    background: var(--color-green);
-    color: var(--color-paper);
-  }
-  :focus-visible {
-    outline: 2px solid var(--color-green);
-    outline-offset: 3px;
-  }
-  h1, h2, h3 {
-    text-wrap: balance;
-  }
-  p {
-    text-wrap: pretty;
-  }
+  ::selection { background: var(--color-lime); color: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-green); outline-offset: 3px; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
 }
 
+/* Serif display type for headings */
 @utility display {
+  font-family: var(--font-serif);
   font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
+}
+
+@utility eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
 }
 
 @utility wrap {
   margin-inline: auto;
   width: 100%;
-  max-width: 88rem;
+  max-width: 90rem;
   padding-inline: 1rem;
-  @media (width >= 48rem) {
-    padding-inline: 2.5rem;
-  }
+  @media (width >= 48rem) { padding-inline: 2.5rem; }
 }
 
 @utility link-arrow {
   display: inline-flex;
   align-items: baseline;
   gap: 0.4em;
-  & .arrow {
-    display: inline-block;
-    transition: transform 300ms var(--ease-out-soft);
-  }
-  &:hover .arrow,
-  &:focus-visible .arrow {
-    transform: translateX(0.3em);
-  }
+  & .arrow { display: inline-block; transition: transform 300ms var(--ease-out-soft); }
+  &:hover .arrow, &:focus-visible .arrow { transform: translateX(0.3em); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -110,4 +81,30 @@
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Break-even calculator sliders */
+.be-range {
+  appearance: none;
+  height: 4px;
+  background: linear-gradient(to right, var(--color-lime) var(--pct), rgb(247 245 241 / 0.25) var(--pct));
+  cursor: pointer;
+}
+.be-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-lime);
+  border: 3px solid var(--color-green-ink);
+  box-shadow: 0 0 0 1px var(--color-lime);
+  transition: transform 200ms var(--ease-out-soft);
+}
+.be-range::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.be-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-lime);
+  border: 3px solid var(--color-green-ink);
 }

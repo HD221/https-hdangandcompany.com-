@@ -1,38 +1,52 @@
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { firm } from '../content'
-import { Reveal } from './Motion'
+import { Magnetic, RotatingBadge } from './Motion'
 
-export default function ContactBand({ heading = 'Tell us what your business needs.' }: { heading?: string }) {
+export default function ContactBand({ heading = "Let's talk." }: { heading?: string }) {
+  const ref = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] })
+  const scale = useTransform(scrollYProgress, [0, 1], [0.7, 1])
+  const x = useTransform(scrollYProgress, [0, 1], ['-12%', '0%'])
+
   return (
-    <section className="bg-green text-paper" aria-labelledby="contact-band">
-      <div className="wrap grid gap-12 py-20 md:grid-cols-12 md:py-28">
-        <Reveal className="md:col-span-7">
-          <h2 id="contact-band" className="display text-[2.6rem] md:text-7xl">
-            {heading}
-          </h2>
-          <p className="mt-6 max-w-[34rem] text-paper/85">
-            Estimates are free. Message us on WhatsApp with a time that suits you, or call the office directly.
-          </p>
-        </Reveal>
-        <Reveal delay={0.1} className="self-end md:col-span-4 md:col-start-9">
-          <a
-            href={firm.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-arrow bg-lime px-6 py-4 text-lg font-semibold text-ink transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            Book a call on WhatsApp <span className="arrow" aria-hidden="true">→</span>
-          </a>
-          <dl className="mt-10 space-y-4 text-[0.95rem]">
+    <section ref={ref} className="overflow-hidden bg-green text-paper" aria-labelledby="contact-band">
+      <div className="wrap py-20 md:py-28">
+        <motion.h2
+          id="contact-band"
+          className="display origin-left whitespace-nowrap text-[22vw] leading-[0.85] md:text-[15vw]"
+          style={reduce ? undefined : { scale, x }}
+        >
+          {heading}
+        </motion.h2>
+        <div className="mt-12 grid items-end gap-12 md:grid-cols-12">
+          <dl className="grid gap-6 sm:grid-cols-2 md:col-span-7">
             <div>
-              <dt className="text-paper/70">Phone</dt>
-              <dd><a href={firm.phoneHref} className="text-xl hover:underline underline-offset-4">{firm.phoneDisplay}</a></dd>
+              <dt className="eyebrow text-lime">Phone and WhatsApp</dt>
+              <dd className="mt-2 text-2xl"><a href={firm.phoneHref} className="hover:text-lime">{firm.phoneDisplay}</a></dd>
             </div>
-            <div>
-              <dt className="text-paper/70">Email</dt>
-              <dd><a href={`mailto:${firm.email}`} className="text-xl hover:underline underline-offset-4">{firm.email}</a></dd>
+            <div className="min-w-0">
+              <dt className="eyebrow text-lime">Email</dt>
+              <dd className="mt-2 break-words text-2xl"><a href={`mailto:${firm.email}`} className="hover:text-lime">{firm.email}</a></dd>
             </div>
           </dl>
-        </Reveal>
+          <div className="flex items-center gap-8 md:col-span-5 md:justify-end">
+            <Magnetic strength={0.4}>
+              <a
+                href={firm.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-arrow bg-lime px-7 py-5 text-lg font-semibold text-ink"
+              >
+                Book a call <span className="arrow" aria-hidden="true">→</span>
+              </a>
+            </Magnetic>
+            <RotatingBadge text="Free estimate · Chartered Accountants · " className="hidden h-36 w-36 text-lime sm:block">
+              <span className="display text-4xl italic text-paper">₹</span>
+            </RotatingBadge>
+          </div>
+        </div>
       </div>
     </section>
   )

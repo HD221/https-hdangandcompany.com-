@@ -20,6 +20,7 @@ export type Service = {
   number: string
   name: string
   short: string
+  tagline: string
   intro: string
   sections: Section[]
   image?: { src: string; alt: string; w: number; h: number }
@@ -29,6 +30,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: 'startup-advisory',
+    tagline: 'From registration to your first investor meeting.',
     number: '01',
     name: 'Startup advisory',
     short:
@@ -68,6 +70,7 @@ export const services: Service[] = [
   },
   {
     slug: 'rpa-and-data-analytics',
+    tagline: 'Let software handle the repetitive office work.',
     number: '02',
     name: 'RPA and data analytics',
     short:
@@ -130,6 +133,7 @@ export const services: Service[] = [
   },
   {
     slug: 'financial-advisory-and-virtual-cfo',
+    tagline: 'A part time CFO for cash, debt and budgets.',
     number: '03',
     name: 'Financial advisory and virtual CFO',
     short:
@@ -174,6 +178,7 @@ export const services: Service[] = [
   },
   {
     slug: 'virtual-bookkeeping',
+    tagline: 'Your books kept current, from anywhere.',
     number: '04',
     name: 'Virtual bookkeeping',
     short:
@@ -205,6 +210,7 @@ export const services: Service[] = [
   },
   {
     slug: 'cryptocurrency-and-blockchain',
+    tagline: 'Audit, tax and controls for crypto businesses.',
     number: '05',
     name: 'Cryptocurrency and blockchain',
     short:
