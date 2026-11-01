@@ -44,7 +44,7 @@ export default function Services() {
     <>
       <section className="wrap pb-16 pt-12 md:pb-24 md:pt-20">
         <p className="eyebrow text-green">Services</p>
-        <SplitText as="h1" onMount text="Five services, *one desk.*" className="display mt-6 text-[3.6rem] sm:text-7xl lg:text-[8rem]" />
+        <SplitText as="h1" onMount text="Three services, *one desk.*" className="display mt-6 text-[3.6rem] sm:text-7xl lg:text-[8rem]" />
       </section>
       <div ref={ref} className="wrap space-y-6 pb-24 md:space-y-[18vh] md:pb-40">
         {services.map((s, i) => (

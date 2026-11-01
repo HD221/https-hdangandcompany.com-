@@ -9,13 +9,13 @@ export const pages: Meta[] = [
     path: '/',
     title: 'H Dang and Company | Chartered Accountants in Vadodara',
     description:
-      'Chartered accountants in Vadodara for startups and growing businesses: startup advisory, virtual CFO, bookkeeping, RPA and crypto accounting.',
+      'Chartered accountants in Vadodara for startups and growing businesses: startup advisory, virtual CFO services and virtual bookkeeping.',
   },
   {
     path: '/services',
     title: 'Services' + suffix,
     description:
-      'Startup advisory, RPA and data analytics, financial advisory and virtual CFO, virtual bookkeeping, and cryptocurrency audit and tax.',
+      'Startup advisory, financial advisory and virtual CFO services, and virtual bookkeeping from H Dang and Company, Vadodara.',
   },
   ...services.map((s) => ({ path: `/services/${s.slug}`, title: s.name + suffix, description: s.metaDescription })),
   {

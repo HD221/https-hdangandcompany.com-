@@ -69,72 +69,9 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: 'rpa-and-data-analytics',
-    tagline: 'Let software handle the repetitive office work.',
-    number: '02',
-    name: 'RPA and data analytics',
-    short:
-      'Robotic process automation lets software handle repetitive office work. We map your processes, automate the routine parts and give you reports you can act on.',
-    intro:
-      'Robotic process automation (RPA) is software that carries out routine business tasks on its own. Used well, it cuts manual work and makes your processes easier to change. We use it as part of business process reengineering for your company.',
-    metaDescription:
-      'RPA and data analytics for businesses in Vadodara: automating approvals, tasks, contact centre work and internal collaboration.',
-    image: { src: '/images/office', alt: 'An open plan office with rows of desks and chairs', w: 940, h: 788 },
-    sections: [
-      {
-        title: 'Business process management',
-        items: [
-          'Leave requests',
-          'Business travel',
-          'Purchases, expenses and other forms',
-          'General helpdesk',
-          'Absence charts',
-          'Clocking in and out',
-          'Task management tools',
-          'CRM applications',
-          'Online store automation',
-        ],
-      },
-      {
-        title: 'Task automation',
-        items: [
-          'Triggers that create tasks from business processes',
-          'Repeating tasks',
-          'Templates',
-          'Recurring tasks based on an interval or an event',
-          'Task sequences',
-          'Dependencies between tasks',
-        ],
-      },
-      {
-        title: 'Contact centre',
-        items: [
-          'Canned replies from an autodialer',
-          'Voicemail and website widgets connected to bots',
-          'Automated responses',
-          'Call forwarding and transfer',
-        ],
-      },
-      {
-        title: 'Communication and collaboration',
-        items: [
-          'Knowledge management',
-          'Company structure',
-          'HR resources',
-          'Workgroups and projects',
-          'Document distribution and processing',
-          'Access rights for creating, editing, viewing and publishing',
-          'Time tracking',
-          'Workload management',
-          'Calendars and schedules',
-        ],
-      },
-    ],
-  },
-  {
     slug: 'financial-advisory-and-virtual-cfo',
     tagline: 'A part time CFO for cash, debt and budgets.',
-    number: '03',
+    number: '02',
     name: 'Financial advisory and virtual CFO',
     short:
       'A financial plan built around your goals. We act as your part time CFO for debt, cash flow, budgets and risk.',
@@ -179,7 +116,7 @@ export const services: Service[] = [
   {
     slug: 'virtual-bookkeeping',
     tagline: 'Your books kept current, from anywhere.',
-    number: '04',
+    number: '03',
     name: 'Virtual bookkeeping',
     short:
       'We record your transactions, find tax deductions and prepare regular financial statements. It is the same work an in-house bookkeeper does, done remotely.',
@@ -208,60 +145,6 @@ export const services: Service[] = [
       },
     ],
   },
-  {
-    slug: 'cryptocurrency-and-blockchain',
-    tagline: 'Audit, tax and controls for crypto businesses.',
-    number: '05',
-    name: 'Cryptocurrency and blockchain',
-    short:
-      'Audit, tax, controls and accounting systems for businesses that hold or deal in crypto assets.',
-    intro:
-      'A blockchain is a shared ledger that records every transaction on a peer-to-peer network, so transactions can be confirmed without a central clearing house. It is used for payments, trade settlement, voting and more. We help businesses that work with it keep their audit, tax and controls in order.',
-    metaDescription:
-      'Cryptocurrency audit, taxation, risk assurance and crypto accounting consulting from H Dang and Company, Chartered Accountants, Vadodara.',
-    sections: [
-      {
-        title: 'Cryptocurrency audit',
-        items: [
-          'PCAOB financial statement audits for public filers',
-          'Proof of reserves',
-          'MTL and state licensure audits',
-          'Stablecoin attestations',
-          'IT audits',
-        ],
-      },
-      {
-        title: 'Cryptocurrency taxation',
-        items: [
-          'Individual tax preparation and reporting',
-          'Tax planning and reporting for companies',
-          'International tax credits and incentives',
-          'State and local tax credits and incentives',
-        ],
-      },
-      {
-        title: 'Risk assurance',
-        body:
-          'The CryptoCurrency Security Standard (CCSS) is the benchmark for securing crypto custody systems. We find the gaps and have them validated against it before you share the results with your users.',
-        items: [
-          'SOC 1 and SOC 2 audit and compliance',
-          'Designing and putting internal controls in place',
-          'Preparing and reviewing policies and procedures',
-          'SOX compliance and audit',
-          'Cybersecurity and privacy',
-          'Internal controls over financial reporting, ERM and internal audit',
-        ],
-      },
-      {
-        title: 'Consulting',
-        items: [
-          'Sub-ledger, ERP and crypto accounting systems',
-          'Token treasury management and token valuation',
-          'Outsourced accounting, HR and payroll strategy',
-        ],
-      },
-    ],
-  },
 ]
 
 export const founder = {
@@ -269,7 +152,7 @@ export const founder = {
   role: 'Chartered Accountant and founder',
   bio: [
     'Hritik Dang is a qualified Chartered Accountant, an investment banker and an entrepreneur.',
-    'He is a keen follower of technology and likes learning something new every day. His aim is to build a firm that brings finance work online, which is why the practice covers automation and data alongside accounts.',
+    'He is a keen follower of technology and likes learning something new every day. His aim is to bring more finance work online.',
   ],
-  image: { src: '/images/hritik-dang', alt: 'Hritik Dang, Chartered Accountant, standing in a navy suit', w: 960, h: 1016 },
+  image: { src: '/images/hritik-dang-desk', alt: 'Hritik Dang, Chartered Accountant, seated at his office desk', w: 940, h: 788 },
 }

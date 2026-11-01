@@ -65,12 +65,12 @@ export default function HorizontalServices() {
       <div>
         <p className="eyebrow text-green">What we do</p>
         <h2 id="what-we-do" className="display mt-4 text-5xl md:text-7xl">
-          Five services, <span className="italic text-green">one desk.</span>
+          Three services, <span className="italic text-green">one desk.</span>
         </h2>
       </div>
       <p className="display hidden text-4xl tabular-nums text-green md:block" aria-hidden="true">
         {services[active].number}
-        <span className="text-ink/30"> / 05</span>
+        <span className="text-ink/30"> / {String(services.length).padStart(2, '0')}</span>
       </p>
     </div>
   )
@@ -114,7 +114,7 @@ export default function HorizontalServices() {
             </div>
           ))}
         </div>
-        <p className="wrap pb-12 text-[0.9rem] text-muted">Swipe to see all five →</p>
+        <p className="wrap pb-12 text-[0.9rem] text-muted">Swipe to see all three →</p>
       </section>
     </>
   )

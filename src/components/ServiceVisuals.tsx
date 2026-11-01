@@ -69,52 +69,7 @@ function Roadmap({ tone }: { tone: Tone }) {
   )
 }
 
-/* 02 RPA: a loop of automated steps with work flowing round it */
-function FlowLoop({ tone }: { tone: Tone }) {
-  const c = palette(tone)
-  const reduce = useReducedMotion()
-  const nodes = [
-    { x: 40, y: 40, label: 'Trigger' },
-    { x: 240, y: 40, label: 'Task' },
-    { x: 240, y: 190, label: 'Approve' },
-    { x: 40, y: 190, label: 'Report' },
-  ]
-  const loop = 'M160,75 L240,75 M300,110 L300,190 M240,225 L160,225 M100,190 L100,110'
-  const track = 'M100,75 L300,75 L300,225 L100,225 Z'
-  return (
-    <Frame label="An automation loop: trigger, task, approve, report">
-      <motion.path d={loop} stroke={c.faint} strokeWidth={10} variants={draw(0.2, 1)} />
-      <motion.path
-        d={track}
-        fill="none"
-        stroke={c.line}
-        strokeWidth={2}
-        strokeDasharray="5 9"
-        initial={{ strokeDashoffset: 0 }}
-        animate={reduce ? undefined : { strokeDashoffset: -140 }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-      />
-      {nodes.map((n, i) => (
-        <motion.g key={n.label} variants={pop(0.15 + i * 0.18)} style={{ transformOrigin: `${n.x + 60}px ${n.y + 35}px` }}>
-          <rect x={n.x} y={n.y} width={120} height={70} fill={tone === 'dark' ? '#24574b' : '#f7f5f1'} stroke={c.line} strokeWidth={2} />
-          <text x={n.x + 60} y={n.y + 41} textAnchor="middle" fill={c.text} fontSize={16} fontWeight={600}>
-            {n.label}
-          </text>
-        </motion.g>
-      ))}
-      {!reduce && (
-        <circle r={7} fill={c.accent} stroke={c.stroke} strokeWidth={2}>
-          <animateMotion dur="5s" repeatCount="indefinite" path={track} />
-        </circle>
-      )}
-      <motion.text x={200} y={156} textAnchor="middle" fill={c.text} fontSize={13} opacity={0.75} variants={rise(1)}>
-        runs on its own
-      </motion.text>
-    </Frame>
-  )
-}
-
-/* 03 Virtual CFO: a financial-year cash flow forecast, April to March */
+/* 02 Virtual CFO: a financial-year cash flow forecast, April to March */
 function CashFlow({ tone }: { tone: Tone }) {
   const c = palette(tone)
   const months = ['A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D', 'J', 'F', 'M']
@@ -156,7 +111,7 @@ function CashFlow({ tone }: { tone: Tone }) {
   )
 }
 
-/* 04 Bookkeeping: a T-account where debits and credits balance */
+/* 03 Bookkeeping: a T-account where debits and credits balance */
 function Ledger({ tone }: { tone: Tone }) {
   const c = palette(tone)
   const dr = [120, 150, 90]
@@ -188,54 +143,10 @@ function Ledger({ tone }: { tone: Tone }) {
   )
 }
 
-/* 05 Crypto: blocks linked into a chain, each pointing to the last */
-function Chain({ tone }: { tone: Tone }) {
-  const c = palette(tone)
-  const reduce = useReducedMotion()
-  const blocks = [
-    { x: 20, y: 120, hash: 'a' },
-    { x: 115, y: 90, hash: 'b' },
-    { x: 210, y: 120, hash: 'c' },
-    { x: 305, y: 90, hash: 'd' },
-  ]
-  return (
-    <Frame label="Four blocks linked in a chain, each carrying the hash of the one before">
-      {blocks.slice(0, -1).map((b, i) => {
-        const n = blocks[i + 1]
-        return <motion.path key={i} d={`M${b.x + 75},${b.y + 37} L${n.x},${n.y + 37}`} stroke={c.line} strokeWidth={3} strokeDasharray="2 5" strokeLinecap="round" variants={draw(0.5 + i * 0.3, 0.4)} />
-      })}
-      {blocks.map((b, i) => (
-        <motion.g key={b.hash} variants={{ hidden: { y: -40, opacity: 0 }, show: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 14, delay: i * 0.3 } } }}>
-          <rect x={b.x} y={b.y} width={75} height={75} fill={tone === 'dark' ? '#24574b' : '#f7f5f1'} stroke={c.line} strokeWidth={2} />
-          <motion.rect
-            x={b.x}
-            y={b.y}
-            width={75}
-            height={75}
-            fill={c.accent}
-            initial={{ opacity: 0 }}
-            animate={reduce ? undefined : { opacity: [0, 0.9, 0] }}
-            transition={{ duration: 1.2, repeat: Infinity, repeatDelay: 3.6, delay: 2 + i * 1.2 }}
-          />
-          <text x={b.x + 37.5} y={b.y + 32} textAnchor="middle" fill={c.text} fontSize={13} fontWeight={700}>
-            Block {i + 1}
-          </text>
-          <rect x={b.x + 14} y={b.y + 46} width={47} height={6} fill={c.faint} />
-        </motion.g>
-      ))}
-      <motion.text x={200} y={250} textAnchor="middle" fill={c.text} fontSize={13} opacity={0.75} variants={rise(1.6)}>
-        every block carries the hash of the last
-      </motion.text>
-    </Frame>
-  )
-}
-
 const visuals: Record<string, (p: { tone: Tone }) => JSX.Element> = {
   'startup-advisory': Roadmap,
-  'rpa-and-data-analytics': FlowLoop,
   'financial-advisory-and-virtual-cfo': CashFlow,
   'virtual-bookkeeping': Ledger,
-  'cryptocurrency-and-blockchain': Chain,
 }
 
 export default function ServiceVisual({ slug, tone = 'light', className }: { slug: string; tone?: Tone; className?: string }) {
