@@ -1,0 +1,138 @@
+import { useState, type FormEvent } from 'react'
+import { firm, services } from '../content'
+
+const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Earth Alpha, Tandalja, Vasna, Vadodara 390007')
+
+function Field({ label, name, type = 'text', required, autoComplete }: { label: string; name: string; type?: string; required?: boolean; autoComplete?: string }) {
+  return (
+    <label className="block">
+      <span className="text-[0.9rem] text-muted">
+        {label}
+        {required ? '' : ' (optional)'}
+      </span>
+      <input
+        name={name}
+        type={type}
+        required={required}
+        autoComplete={autoComplete}
+        className="mt-1 block w-full border-0 border-b border-ink/40 bg-transparent px-0 py-2.5 text-lg focus:border-green focus:outline-none focus:ring-0"
+      />
+    </label>
+  )
+}
+
+export default function Contact() {
+  const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setState('sending')
+    const data = new FormData(e.currentTarget)
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+      })
+      if (!res.ok) throw new Error(String(res.status))
+      setState('sent')
+    } catch {
+      setState('error')
+    }
+  }
+
+  return (
+    <section className="wrap grid gap-16 pb-24 pt-14 md:grid-cols-12 md:pb-32 md:pt-24">
+      <div className="md:col-span-5">
+        <p className="mb-8 text-[0.8rem] font-medium uppercase tracking-[0.25em] text-green">Contact</p>
+        <h1 className="display text-[2.9rem] sm:text-6xl lg:text-[5rem]">Pick up the phone or come to the office.</h1>
+
+        <dl className="mt-14 space-y-8">
+          <div>
+            <dt className="text-[0.9rem] text-muted">Phone and WhatsApp</dt>
+            <dd className="mt-1 text-2xl">
+              <a href={firm.phoneHref} className="hover:underline underline-offset-4">{firm.phoneDisplay}</a>
+            </dd>
+            <dd className="mt-2">
+              <a href={firm.whatsapp} target="_blank" rel="noopener noreferrer" className="link-arrow font-medium text-green underline underline-offset-[0.3em]">
+                <span>Message on WhatsApp</span><span className="arrow" aria-hidden="true">→</span>
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt className="text-[0.9rem] text-muted">Email</dt>
+            <dd className="mt-1 text-2xl">
+              <a href={`mailto:${firm.email}`} className="break-all hover:underline underline-offset-4">{firm.email}</a>
+            </dd>
+          </div>
+          <div>
+            <dt className="text-[0.9rem] text-muted">Office</dt>
+            <dd className="mt-1 text-xl leading-snug">
+              <address className="not-italic">
+                {firm.address.map((l) => <span key={l} className="block">{l}</span>)}
+              </address>
+            </dd>
+            <dd className="mt-2">
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-arrow font-medium text-green underline underline-offset-[0.3em]">
+                <span>Open in Google Maps</span><span className="arrow" aria-hidden="true">→</span>
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt className="text-[0.9rem] text-muted">Elsewhere</dt>
+            <dd className="mt-1">
+              <a href={firm.linkedin} target="_blank" rel="noopener noreferrer" className="link-arrow underline underline-offset-[0.3em]">
+                <span>LinkedIn</span><span className="arrow" aria-hidden="true">→</span>
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div className="md:col-span-6 md:col-start-7 md:pt-40">
+        <h2 className="display text-3xl md:text-4xl">Or write to us here</h2>
+        <p className="mt-3 text-muted">We will reply by email or phone.</p>
+        {state === 'sent' ? (
+          <p role="status" className="mt-10 border-t border-green pt-6 text-xl">
+            Thank you. Your message has reached us and we will be in touch.
+          </p>
+        ) : (
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="company-website" onSubmit={submit} className="mt-10 space-y-8">
+            <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden">
+              <label>Leave this empty <input name="company-website" tabIndex={-1} autoComplete="off" /></label>
+            </p>
+            <Field label="Name" name="name" required autoComplete="name" />
+            <div className="grid gap-8 sm:grid-cols-2">
+              <Field label="Email" name="email" type="email" required autoComplete="email" />
+              <Field label="Phone" name="phone" type="tel" autoComplete="tel" />
+            </div>
+            <label className="block">
+              <span className="text-[0.9rem] text-muted">What do you need help with?</span>
+              <select name="topic" className="mt-1 block w-full border-0 border-b border-ink/40 bg-transparent px-0 py-2.5 text-lg focus:border-green focus:outline-none">
+                {services.map((s) => <option key={s.slug}>{s.name}</option>)}
+                <option>Something else</option>
+              </select>
+            </label>
+            <label className="block">
+              <span className="text-[0.9rem] text-muted">Message</span>
+              <textarea name="message" rows={5} required className="mt-1 block w-full resize-y border-0 border-b border-ink/40 bg-transparent px-0 py-2.5 text-lg focus:border-green focus:outline-none" />
+            </label>
+            <button
+              type="submit"
+              disabled={state === 'sending'}
+              className="link-arrow bg-green px-6 py-4 text-lg font-medium text-paper transition-colors duration-300 hover:bg-green-deep disabled:opacity-60"
+            >
+              {state === 'sending' ? 'Sending' : 'Send message'} <span className="arrow" aria-hidden="true">→</span>
+            </button>
+            {state === 'error' && (
+              <p role="alert" className="text-[0.95rem]">
+                That did not go through. Please email {firm.email} or call {firm.phoneDisplay}.
+              </p>
+            )}
+          </form>
+        )}
+      </div>
+    </section>
+  )
+}

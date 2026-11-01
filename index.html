@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2E6B5C" />
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <noscript><style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style></noscript>
+    <!--head-->
+  </head>
+  <body>
+    <div id="root"><!--app--></div>
+    <!-- Lets Netlify detect the contact form at build time -->
+    <form name="contact" data-netlify="true" netlify-honeypot="company-website" hidden>
+      <input name="name" /><input name="email" /><input name="phone" /><input name="topic" /><textarea name="message"></textarea><input name="company-website" />
+    </form>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
