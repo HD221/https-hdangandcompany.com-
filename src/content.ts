@@ -7,7 +7,7 @@ export const firm = {
   phoneDisplay: '+91 88492 20024',
   phoneHref: 'tel:+918849220024',
   whatsapp: 'https://wa.me/918849220024',
-  email: 'hello@hdangandcompany.com',
+  email: 'info@hdangandcompany.com',
   linkedin: 'https://www.linkedin.com/company/h-dang-and-company',
   address: ['Unit 509, Empire Edge', 'Gotri - Vasna Road, Near Nilambar Circle', 'Vadodara, Gujarat, India 390 007'],
   url: 'https://hdangandcompany.com',
