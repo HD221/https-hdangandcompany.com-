@@ -14,11 +14,12 @@ import { createElement, useEffect, useRef, useState, type ReactNode } from 'reac
 
 export const ease = [0.22, 1, 0.36, 1] as const
 
-/** Fades and lifts content into place the first time it scrolls into view. */
-export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
+/** Fades and lifts content into place the first time it scrolls into view. Use `as="li"` inside lists. */
+export function Reveal({ children, delay = 0, className, as = 'div' }: { children: ReactNode; delay?: number; className?: string; as?: 'div' | 'li' }) {
   const reduce = useReducedMotion()
+  const Tag = as === 'li' ? motion.li : motion.div
   return (
-    <motion.div
+    <Tag
       className={className}
       initial={{ opacity: 0, y: 28 }}
       {...(reduce ? { animate: { opacity: 1, y: 0 } } : { whileInView: { opacity: 1, y: 0 } })}
@@ -26,7 +27,7 @@ export function Reveal({ children, delay = 0, className }: { children: ReactNode
       transition={reduce ? { duration: 0 } : { duration: 0.6, ease, delay }}
     >
       {children}
-    </motion.div>
+    </Tag>
   )
 }
 

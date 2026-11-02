@@ -2,6 +2,41 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
-    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/the-firm",
+      "permanent": true
+    },
+    {
+      "source": "/services/startup-advisory",
+      "destination": "/services/fundraising-readiness",
+      "permanent": true
+    },
+    {
+      "source": "/services/financial-advisory-and-virtual-cfo",
+      "destination": "/services/virtual-cfo",
+      "permanent": true
+    },
+    {
+      "source": "/services/rpa-and-data-analytics",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/cryptocurrency-and-blockchain",
+      "destination": "/services",
+      "permanent": true
+    }
   ]
 }

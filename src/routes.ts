@@ -1,4 +1,4 @@
-import { services } from './content'
+import { articles, services } from './content'
 
 export type Meta = { path: string; title: string; description: string }
 
@@ -7,29 +7,46 @@ const suffix = ' | H Dang and Company, Chartered Accountants'
 export const pages: Meta[] = [
   {
     path: '/',
-    title: 'H Dang and Company | Chartered Accountants in Vadodara',
+    title: 'H Dang and Company | Virtual CFO, FP&A and Fundraising Support',
     description:
-      'Chartered accountants in Vadodara for startups and growing businesses: startup advisory, virtual CFO services and virtual bookkeeping.',
+      'Chartered Accountants in Vadodara serving India, the US and Canada: virtual CFO, FP&A, virtual bookkeeping and fundraising readiness for growing businesses.',
   },
   {
     path: '/services',
     title: 'Services' + suffix,
     description:
-      'Startup advisory, financial advisory and virtual CFO services, and virtual bookkeeping from H Dang and Company, Vadodara.',
+      'Four core services that work as your outsourced finance function, two specialist services, and tax, audit and compliance in India.',
   },
   ...services.map((s) => ({ path: `/services/${s.slug}`, title: s.name + suffix, description: s.metaDescription })),
   {
-    path: '/about',
-    title: 'About' + suffix,
-    description:
-      'H Dang and Company is a Chartered Accountancy practice in Vadodara run by Hritik Dang, CA. Read about the firm, its vision and mission.',
+    path: '/industries',
+    title: 'Industries' + suffix,
+    description: 'Accounting and reporting for startups and SaaS, e-commerce, real estate, distribution, professional services, hospitality, healthcare and manufacturing.',
   },
   {
-    path: '/contact',
-    title: 'Contact' + suffix,
-    description:
-      'Phone, WhatsApp and email for H Dang and Company. Office at Unit 509, Empire Edge, Gotri - Vasna Road, Near Nilambar Circle, Vadodara 390 007.',
+    path: '/how-we-work',
+    title: 'How we work' + suffix,
+    description: 'From discovery call to a steady monthly cycle: engagement models, a typical monthly calendar, working hours by time zone and the platforms we use.',
   },
+  {
+    path: '/the-firm',
+    title: 'The firm' + suffix,
+    description: 'CA Hritik Dang, Proprietor (ICAI M. No. 615134), a team of ten, and clients listed with their written permission. FRN 158649W.',
+  },
+  {
+    path: '/insights',
+    title: 'Insights' + suffix,
+    description: 'Practical guides on finance operations, planning and fundraising for growing businesses.',
+  },
+  ...articles.filter((a) => a.body).map((a) => ({ path: `/insights/${a.slug}`, title: a.title + suffix, description: a.summary })),
+  {
+    path: '/contact',
+    title: 'Send an enquiry' + suffix,
+    description: 'Send an enquiry to H Dang and Company. Unit 509, Empire Edge, Gotri - Vasna Road, Near Nilambar Circle, Vadodara 390 007.',
+  },
+  { path: '/disclaimer', title: 'Disclaimer' + suffix, description: 'Disclaimer for the H Dang and Company website, including the ICAI guidelines on solicitation and advertising.' },
+  { path: '/privacy-policy', title: 'Privacy Policy' + suffix, description: 'How H Dang and Company handles details sent through this website.' },
+  { path: '/terms-of-use', title: 'Terms of Use' + suffix, description: 'Terms of use for the H Dang and Company website.' },
 ]
 
 export const notFound: Meta = {

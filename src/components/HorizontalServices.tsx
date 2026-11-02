@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { services, type Service } from '../content'
+import { coreServices as services, type Service } from '../content'
 import ServiceVisual from './ServiceVisuals'
 
 const useIsoLayoutEffect = typeof window === 'undefined' ? () => {} : useLayoutEffect
@@ -15,10 +15,15 @@ function Panel({ s, i }: { s: Service; i: number }) {
       }`}
     >
       <div className="flex flex-col justify-between">
-        <span className="display text-[5rem] leading-none text-lime md:text-[9rem]">{s.number}</span>
+        <span className="display text-[4rem] leading-none text-lime md:text-[7rem]">{s.number}</span>
         <div>
-          <h3 className="display text-[2.3rem] md:text-6xl">{s.name}</h3>
-          <p className="mt-3 text-paper md:text-lg">{s.tagline}</p>
+          <h3 className="display text-[2.1rem] md:text-5xl">{s.name}</h3>
+          <p className="mt-3 max-w-[30rem] text-paper">{s.short}</p>
+          <ul className="mt-4 flex flex-wrap gap-2 text-[0.8rem]">
+            {s.bullets.map((b) => (
+              <li key={b} className="border border-paper/35 px-2.5 py-1">{b}</li>
+            ))}
+          </ul>
           <Link
             to={`/services/${s.slug}`}
             className="link-arrow mt-6 bg-lime px-5 py-3 font-semibold text-ink transition-transform duration-300 hover:-translate-y-0.5"
@@ -63,9 +68,9 @@ export default function HorizontalServices() {
   const heading = (
     <div className="wrap flex items-end justify-between gap-6 pb-8 pt-16 md:pb-10 md:pt-20">
       <div>
-        <p className="eyebrow text-green">What we do</p>
-        <h2 id="what-we-do" className="display mt-4 text-5xl md:text-7xl">
-          Three services, <span className="italic text-green">one desk.</span>
+        <p className="eyebrow text-green">Our services</p>
+        <h2 id="what-we-do" className="display mt-4 max-w-[22ch] text-4xl md:text-6xl">
+          An outsourced finance function, built around <span className="italic text-green">four core services.</span>
         </h2>
       </div>
       <p className="display hidden text-4xl tabular-nums text-green md:block" aria-hidden="true">
@@ -105,16 +110,16 @@ export default function HorizontalServices() {
       </section>
 
       {/* Phones: swipe */}
-      <section aria-label="What we do" className="md:hidden">
+      <section aria-label="Our services" className="md:hidden">
         {heading}
         <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6 [scrollbar-width:none]">
           {services.map((s, i) => (
-            <div key={s.slug} className="h-[78vh] max-h-[40rem] min-h-[32rem]">
+            <div key={s.slug} className="flex">
               <Panel s={s} i={i} />
             </div>
           ))}
         </div>
-        <p className="wrap pb-12 text-[0.9rem] text-muted">Swipe to see all three →</p>
+        <p className="wrap pb-12 text-[0.9rem] text-muted">Swipe to see all four →</p>
       </section>
     </>
   )

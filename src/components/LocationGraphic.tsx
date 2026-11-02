@@ -37,7 +37,7 @@ export default function LocationGraphic() {
       <motion.path d={road} fill="none" stroke="#f7f5f1" strokeWidth={2} strokeDasharray="12 12" variants={draw(0.2, 1.4)} />
 
       {/* Nilambar Circle */}
-      <motion.circle cx={360} cy={200} r={42} fill="#24574b" stroke="#f7f5f1" strokeWidth={3} variants={fade(0.8)} />
+      <motion.circle cx={360} cy={200} r={42} fill="#2e6b5c" stroke="#f7f5f1" strokeWidth={3} variants={fade(0.8)} />
       <motion.circle cx={360} cy={200} r={16} fill="none" stroke="#c3f18a" strokeWidth={2} variants={fade(1)} />
       <motion.text x={360} y={272} textAnchor="middle" fill="#f7f5f1" fontSize={17} fontWeight={600} variants={fade(1.1)}>
         Nilambar Circle

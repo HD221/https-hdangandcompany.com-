@@ -1,138 +1,215 @@
-import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { services, type Section } from '../content'
-import { ClipReveal, Picture, Reveal, SplitText, ease } from '../components/Motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { firm, services, type Service } from '../content'
+import { ClipReveal, Picture, Reveal } from '../components/Motion'
 import ServiceVisual from '../components/ServiceVisuals'
-import ContactBand from '../components/ContactBand'
+import { Button, CtaBand, FaqList, PageHero } from '../components/Sections'
 import NotFound from './NotFound'
 
-function Item({ sec, i, open, onToggle }: { sec: Section; i: number; open: boolean; onToggle: () => void }) {
-  const reduce = useReducedMotion()
-  const id = `sec-${i}`
+const kindLabel = (s: Service) => (s.kind === 'core' ? `${s.number} · Core service` : s.kind === 'specialist' ? 'Specialist service' : 'Also offered')
+
+function FeatureGrid({ items }: { items: Service['features'] }) {
   return (
-    <li className="border-t border-rule">
-      <h3>
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-controls={id}
-          onClick={onToggle}
-          className="group flex w-full items-center justify-between gap-6 py-7 text-left md:py-9"
-        >
-          <span className="flex items-baseline gap-5">
-            <span className="font-serif text-xl text-green tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-            <span className="display text-3xl transition-transform duration-500 group-hover:translate-x-2 md:text-5xl">{sec.title}</span>
-          </span>
-          <span
-            aria-hidden="true"
-            className="grid h-12 w-12 shrink-0 place-items-center border border-green text-2xl text-green transition-colors group-hover:bg-green group-hover:text-paper"
+    <ul className="grid border-l border-t border-rule sm:grid-cols-2">
+      {items.map((f, i) => (
+        <Reveal as="li" key={f.title} delay={(i % 2) * 0.06} className="border-b border-r border-rule group h-full p-6 transition-colors hover:bg-green/[0.06]">
+            <h3 className="font-semibold">
+              <span className="mr-2 inline-block h-2 w-2 bg-green transition-transform duration-300 group-hover:rotate-45" aria-hidden="true" />
+              {f.title}
+            </h3>
+            <p className="mt-1.5 text-[0.95rem] text-muted">{f.text}</p>
+          </Reveal>
+      ))}
+    </ul>
+  )
+}
+
+function OnThisSite({ current }: { current: string }) {
+  return (
+    <nav aria-label="All services" className="md:sticky md:top-28">
+      <p className="eyebrow text-[0.68rem] text-green">All services</p>
+      <ul className="mt-4 divide-y divide-rule border-y border-rule text-[0.95rem]">
+        {services.map((s) => (
+          <li key={s.slug}>
+            <Link
+              to={`/services/${s.slug}`}
+              aria-current={s.slug === current ? 'page' : undefined}
+              className={`flex items-baseline gap-2 py-2.5 transition-colors hover:text-green ${s.slug === current ? 'font-semibold text-green' : ''}`}
+            >
+              {s.kind === 'core' && <span className="font-serif text-green">{s.number}</span>}
+              {s.menuName}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+function InfoBoxes({ s }: { s: Service }) {
+  const boxes = [
+    s.suitedTo && { label: 'Suited to', text: s.suitedTo },
+    s.platforms && { label: 'Platforms', text: s.platforms },
+    s.receive && { label: 'You receive', text: s.receive },
+  ].filter(Boolean) as { label: string; text: string }[]
+  if (!boxes.length) return null
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      {boxes.map((b, i) => (
+        <Reveal key={b.label} delay={i * 0.08}>
+          <div className="h-full bg-green/[0.07] p-6">
+            <p className="eyebrow text-[0.65rem] text-green">{b.label}</p>
+            <p className="mt-3">{b.text}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  )
+}
+
+function Fundraising({ s }: { s: Service }) {
+  const fr = s.fundraising!
+  const reduce = useReducedMotion()
+  return (
+    <>
+      <PageHero crumbs={[{ label: 'Home', to: '/' }, { label: 'Services', to: '/services' }, { label: s.name }]} eyebrow={`Service ${s.number}`} title={fr.heading} intro={fr.intro} />
+      <ol className="grid border-b border-rule sm:grid-cols-2 lg:grid-cols-4">
+        {fr.strip.map((t, i) => (
+          <motion.li
+            key={t}
+            className="border-rule px-6 py-6 sm:border-r md:px-10"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.6 + i * 0.1 }}
           >
-            <motion.span className="block leading-none" animate={{ rotate: open ? 45 : 0 }} transition={{ duration: reduce ? 0 : 0.3 }}>
-              +
-            </motion.span>
-          </span>
-        </button>
-      </h3>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id={id}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduce ? 0 : 0.45, ease }}
-            className="overflow-hidden"
-          >
-            <div className="grid gap-6 pb-10 md:grid-cols-12">
-              {sec.body && <p className="max-w-[38rem] md:col-span-6 md:col-start-2">{sec.body}</p>}
-              {sec.items && (
-                <ul className={`flex flex-wrap content-start gap-2 ${sec.body ? 'md:col-span-5' : 'md:col-span-10 md:col-start-2'}`}>
-                  {sec.items.map((it, k) => (
-                    <motion.li
-                      key={it}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: reduce ? 0 : 0.35, delay: reduce ? 0 : 0.05 * k }}
-                      className="bg-green/8 border border-green/25 px-3 py-1.5 text-[0.92rem]"
-                    >
-                      {it}
-                    </motion.li>
-                  ))}
-                </ul>
-              )}
+            <span className="font-serif text-green">{String(i + 1).padStart(2, '0')}</span>
+            <p className="mt-1 font-semibold">{t}</p>
+          </motion.li>
+        ))}
+      </ol>
+      <div className="wrap grid gap-12 py-20 md:grid-cols-12 md:py-24">
+        <div className="space-y-16 md:col-span-8">
+          <section aria-labelledby="included">
+            <h2 id="included" className="display text-4xl md:text-5xl">What's included</h2>
+            <div className="mt-8">
+              <FeatureGrid items={s.features} />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </li>
+          </section>
+          <section aria-labelledby="runs">
+            <h2 id="runs" className="display text-4xl md:text-5xl">How the engagement runs</h2>
+            <div className="mt-8 grid gap-10 lg:grid-cols-2">
+              <ol className="border-t-2 border-green-ink">
+                {fr.steps.map((st, i) => (
+                  <Reveal as="li" key={st.title} delay={i * 0.08} className="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-rule py-5">
+                      <span className="font-serif text-lg text-green">{String(i + 1).padStart(2, '0')}</span>
+                      <span>
+                        <span className="block font-semibold">{st.title}</span>
+                        <span className="block text-[0.95rem] text-muted">{st.text}</span>
+                      </span>
+                    </Reveal>
+                ))}
+              </ol>
+              <div className="bg-green p-6">
+                <ServiceVisual slug={s.slug} tone="dark" />
+              </div>
+            </div>
+          </section>
+          {s.faq && (
+            <section aria-labelledby="fr-faq">
+              <h2 id="fr-faq" className="display text-4xl md:text-5xl">Frequently asked questions</h2>
+              <div className="mt-8">
+                <FaqList items={s.faq} />
+              </div>
+            </section>
+          )}
+        </div>
+        <aside className="space-y-4 md:col-span-4">
+          <div className="space-y-4 md:sticky md:top-28">
+            <div className="bg-green-ink p-7 text-paper">
+              <p className="display text-3xl">Discuss your requirements</p>
+              <p className="mt-2 text-paper/85">Send an enquiry and we'll respond within one working day (IST).</p>
+              <div className="mt-6">
+                <Button to="/contact" variant="paper">
+                  Send an enquiry
+                </Button>
+              </div>
+              <a href={`mailto:${firm.email}`} className="mt-5 block underline underline-offset-4 hover:text-lime">
+                {firm.email}
+              </a>
+            </div>
+            <div className="border border-rule p-7">
+              <p className="eyebrow text-[0.65rem] text-green">You receive</p>
+              <ul className="mt-3 divide-y divide-rule">
+                {fr.receiveList.map((r) => (
+                  <li key={r} className="py-2.5">{r}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-green/[0.07] p-7">
+              <p className="eyebrow text-[0.65rem] text-green">After the raise</p>
+              <Link to="/services/fpa" className="link-arrow mt-3 flex font-semibold text-green">
+                FP&A and investor reporting <span className="arrow" aria-hidden="true">→</span>
+              </Link>
+              <Link to="/services/virtual-cfo" className="link-arrow mt-2 flex font-semibold text-green">
+                Virtual CFO <span className="arrow" aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </>
   )
 }
 
 export default function ServiceDetail() {
   const { slug } = useParams()
   const index = services.findIndex((s) => s.slug === slug)
-  const [open, setOpen] = useState(0)
   if (index < 0) return <NotFound />
   const s = services[index]
+  if (s.fundraising) return <Fundraising key={s.slug} s={s} />
   const next = services[(index + 1) % services.length]
 
   return (
     <>
-      <section className="wrap grid items-center gap-10 pb-16 pt-10 md:grid-cols-12 md:pb-24 md:pt-16">
-        <div className="md:col-span-6">
-          <p className="eyebrow text-green">
-            <Link to="/services" className="hover:underline underline-offset-4">Services</Link>
-            <span aria-hidden="true"> / </span>
-            {s.number}
-          </p>
-          <SplitText as="h1" onMount key={s.slug} text={s.name} className="display mt-6 text-[3.4rem] sm:text-7xl lg:text-[7rem]" />
-          <motion.p
-            key={s.slug + '-t'}
-            className="mt-6 max-w-[30rem] font-serif text-3xl italic leading-tight text-green"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            {s.tagline}
-          </motion.p>
+      <PageHero crumbs={[{ label: 'Home', to: '/' }, { label: 'Services', to: '/services' }, { label: s.menuName }]} eyebrow={kindLabel(s)} title={s.name} intro={s.intro} />
+      <div className="wrap grid gap-12 py-20 md:grid-cols-12 md:py-24">
+        <aside className="md:col-span-3">
+          <OnThisSite current={s.slug} />
+        </aside>
+        <div className="space-y-12 md:col-span-9">
+          <div className="grid gap-8 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+              <FeatureGrid items={s.features} />
+            </div>
+            {s.slug === 'tax-audit-compliance' ? (
+              <ClipReveal className="aspect-[4/5] self-start lg:col-span-2">
+                <Picture img={{ src: '/images/about-report', alt: 'A financial report with bar charts being reviewed at a desk', w: 940, h: 788 }} widths={[640, 940]} sizes="(min-width: 1024px) 30vw, 100vw" className="h-full w-full object-cover" />
+              </ClipReveal>
+            ) : (
+              <div className="self-start bg-green p-6 lg:col-span-2">
+                <ServiceVisual key={s.slug} slug={s.slug} tone="dark" />
+              </div>
+            )}
+          </div>
+          <InfoBoxes s={s} />
+          {s.faq && (
+            <section aria-labelledby="svc-faq">
+              <h2 id="svc-faq" className="display text-3xl md:text-4xl">Questions</h2>
+              <div className="mt-6">
+                <FaqList items={s.faq} />
+              </div>
+            </section>
+          )}
+          <Link to={`/services/${next.slug}`} className="group flex flex-col gap-2 border-t-2 border-green-ink pt-8">
+            <span className="eyebrow text-[0.68rem] text-green">Next service</span>
+            <span className="display link-arrow text-4xl md:text-5xl">
+              <span className="transition-colors group-hover:text-green">{next.name}</span>
+              <span className="arrow" aria-hidden="true">→</span>
+            </span>
+          </Link>
         </div>
-        <div className="bg-green p-6 md:col-span-6 md:p-10">
-          <ServiceVisual key={s.slug} slug={s.slug} tone="dark" />
-        </div>
-      </section>
-
-      {s.image && (
-        <div className="wrap mb-20 md:mb-28">
-          <ClipReveal className="aspect-[16/10] md:aspect-[21/9]">
-            <Picture img={s.image} widths={s.image.w > 640 ? [640, 940] : [640]} sizes="(min-width: 1440px) 1360px, 100vw" className="h-full w-full object-cover" />
-          </ClipReveal>
-        </div>
-      )}
-
-      <section className="wrap grid gap-10 pb-24 md:grid-cols-12 md:pb-32" aria-label={`What ${s.name.toLowerCase()} includes`}>
-        <Reveal className="md:col-span-4">
-          <h2 className="eyebrow text-green">What is included</h2>
-          <p className="mt-4 max-w-[24rem] text-muted">{s.intro}</p>
-        </Reveal>
-        <ul className="border-b border-rule md:col-span-8">
-          {s.sections.map((sec, i) => (
-            <Item key={s.slug + sec.title} sec={sec} i={i} open={open === i} onToggle={() => setOpen(open === i ? -1 : i)} />
-          ))}
-        </ul>
-      </section>
-
-      <section className="group relative overflow-hidden bg-ink text-paper">
-        <Link to={`/services/${next.slug}`} onClick={() => setOpen(0)} className="wrap flex flex-col gap-3 py-16 md:py-24">
-          <span className="eyebrow text-lime">Next service</span>
-          <span className="display link-arrow text-5xl md:text-8xl">
-            <span className="transition-colors duration-300 group-hover:text-lime">{next.name}</span>
-            <span className="arrow" aria-hidden="true">→</span>
-          </span>
-        </Link>
-      </section>
-
-      <ContactBand />
+      </div>
+      <CtaBand />
     </>
   )
 }

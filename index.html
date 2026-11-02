@@ -13,10 +13,11 @@
   </head>
   <body>
     <div id="root"><!--app--></div>
-    <!-- Lets Netlify detect the contact form at build time -->
-    <form name="contact" data-netlify="true" netlify-honeypot="company-website" hidden>
-      <input name="name" /><input name="email" /><input name="phone" /><input name="topic" /><textarea name="message"></textarea><input name="company-website" />
+    <!-- Lets Netlify detect the forms at build time -->
+    <form name="enquiry" data-netlify="true" netlify-honeypot="company-website" hidden>
+      <input name="name" /><input name="business" /><input name="email" /><input name="country" /><input name="service" /><textarea name="message"></textarea><input name="company-website" />
     </form>
+    <form name="subscribe" data-netlify="true" hidden><input name="email" /></form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

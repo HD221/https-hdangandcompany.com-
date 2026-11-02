@@ -17,8 +17,10 @@ const org = {
   name: 'H Dang and Company, Chartered Accountants',
   url: firm.url,
   telephone: '+91-8849220024',
+  identifier: 'ICAI FRN 158649W',
+  foundingDate: '2022',
   email: firm.email,
-  founder: { '@type': 'Person', name: 'Hritik Dang' },
+  founder: { '@type': 'Person', name: 'CA Hritik Dang' },
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Unit 509, Empire Edge, Gotri - Vasna Road, Near Nilambar Circle',
@@ -41,7 +43,7 @@ function head(meta, canonical) {
     `<meta property="og:title" content="${esc(meta.title)}" />`,
     `<meta property="og:description" content="${esc(meta.description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:image" content="${firm.url}/images/desk-640.jpg" />`,
+    `<meta property="og:image" content="${firm.url}/images/about-meeting-940.jpg" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     meta.path === '/' ? `<script type="application/ld+json">${JSON.stringify(org)}</script>` : '',
   ].join('\n    ')

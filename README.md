@@ -23,8 +23,9 @@ node scripts/serve.mjs   # serve dist/ with clean URLs on :4173
 
 ## Editing content
 
-All text lives in `src/content.ts` (services, founder, contact details) and `src/routes.ts`
-(page titles and meta descriptions). Images are in `public/images` as `name-WIDTH.avif/.jpg`.
+All text lives in `src/content.ts` (firm facts, services, industries, team, clients, FAQs, articles) and
+`src/routes.ts` (page titles and meta descriptions). Legal pages are in `src/pages/Legal.tsx`.
+Shared page sections are in `src/components/Sections.tsx`. Images are in `public/images` as `name-WIDTH.avif/.jpg`.
 
 ## Theme
 

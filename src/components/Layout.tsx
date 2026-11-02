@@ -22,8 +22,12 @@ function Logo({ tone = 'green', className = '' }: { tone?: 'green' | 'paper'; cl
 
 const nav = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
+  { to: '/services/fundraising-readiness', label: 'Fundraising' },
+  { to: '/industries', label: 'Industries' },
+  { to: '/how-we-work', label: 'How we work' },
+  { to: '/the-firm', label: 'The firm' },
+  { to: '/insights', label: 'Insights' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -72,10 +76,10 @@ function ServicesMenu() {
                     onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
                     className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-2 px-4 py-3 transition-colors hover:bg-green-ink"
                   >
-                    <span className="font-serif text-xl text-lime">{sv.number}</span>
+                    <span className="font-serif text-xl text-lime">{sv.kind === 'core' ? sv.number : ''}</span>
                     <span>
-                      <span className="display block text-2xl transition-transform duration-300 group-hover:translate-x-1">{sv.name}</span>
-                      <span className="block text-[0.85rem] text-paper/85">{sv.tagline}</span>
+                      <span className="display block text-2xl transition-transform duration-300 group-hover:translate-x-1">{sv.menuName}</span>
+                      <span className="block text-[0.85rem] text-paper/85">{sv.short}</span>
                     </span>
                   </Link>
                 </li>
@@ -118,8 +122,8 @@ function Header() {
           <Link to="/" aria-label="H Dang and Company, home" className={`block transition-opacity duration-300 ${open ? "opacity-0" : ""}`}>
             <Logo className="h-auto w-[190px] md:w-[250px]" />
           </Link>
-          <nav aria-label="Main" className="hidden items-center gap-9 text-[0.98rem] font-medium md:flex">
-            {nav.map((n) =>
+          <nav aria-label="Main" className="hidden items-center gap-6 text-[0.95rem] font-medium xl:flex">
+            {nav.filter((n) => n.to !== '/contact' && n.to !== '/').map((n) =>
               n.to === '/services' ? (
                 <ServicesMenu key={n.to} />
               ) : (
@@ -136,19 +140,14 @@ function Header() {
               ),
             )}
             <Magnetic>
-              <a
-                href={firm.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-arrow bg-green px-5 py-2.5 text-paper transition-colors duration-300 hover:bg-green-deep"
-              >
-                Book a call <span className="arrow" aria-hidden="true">→</span>
-              </a>
+              <Link to="/contact" className="link-arrow bg-green-ink px-5 py-2.5 text-paper transition-colors duration-300 hover:bg-green">
+                Send an enquiry <span className="arrow" aria-hidden="true">→</span>
+              </Link>
             </Magnetic>
           </nav>
           <button
             type="button"
-            className={`relative z-50 text-[0.95rem] font-semibold uppercase tracking-[0.18em] md:hidden ${open ? 'text-paper' : ''}`}
+            className={`relative z-50 text-[0.95rem] font-semibold uppercase tracking-[0.18em] xl:hidden ${open ? 'text-paper' : ''}`}
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((o) => !o)}
@@ -163,7 +162,7 @@ function Header() {
           <motion.nav
             id="mobile-nav"
             aria-label="Main"
-            className="fixed inset-0 z-30 flex flex-col justify-between gap-6 overflow-y-auto bg-green px-4 pb-10 pt-24 text-paper md:hidden"
+            className="fixed inset-0 z-30 flex flex-col justify-between gap-6 overflow-y-auto bg-green px-4 pb-10 pt-24 text-paper xl:hidden"
             initial={{ clipPath: 'circle(0% at 92% 4%)' }}
             animate={{ clipPath: 'circle(150% at 92% 4%)' }}
             exit={{ clipPath: 'circle(0% at 92% 4%)' }}
@@ -173,7 +172,7 @@ function Header() {
               {nav.map((n, i) => (
                 <li key={n.to} className="overflow-hidden border-b border-paper/20">
                   <motion.div initial={{ y: '100%' }} animate={{ y: '0%' }} transition={{ duration: 0.5, ease, delay: reduce ? 0 : 0.2 + i * 0.07 }}>
-                    <Link to={n.to} className="display block py-2 text-5xl">
+                    <Link to={n.to} className="display block py-1.5 text-4xl">
                       {n.label}
                     </Link>
                     {n.to === '/services' && (
@@ -181,8 +180,8 @@ function Header() {
                         {services.map((sv) => (
                           <li key={sv.slug}>
                             <Link to={`/services/${sv.slug}`} className="flex items-baseline gap-3 py-1.5 text-lg">
-                              <span className="font-serif text-lime">{sv.number}</span>
-                              {sv.name}
+                              <span className="w-6 font-serif text-lime">{sv.kind === 'core' ? sv.number : ''}</span>
+                              {sv.menuName}
                             </Link>
                           </li>
                         ))}
@@ -193,9 +192,9 @@ function Header() {
               ))}
             </ul>
             <div className="space-y-2 text-lg">
-              <a href={firm.whatsapp} className="link-arrow font-semibold text-lime">
-                Book a call on WhatsApp <span className="arrow" aria-hidden="true">→</span>
-              </a>
+              <Link to="/contact" className="link-arrow font-semibold text-lime">
+                Send an enquiry <span className="arrow" aria-hidden="true">→</span>
+              </Link>
               <p>{firm.phoneDisplay}</p>
               <p>{firm.email}</p>
             </div>
@@ -207,38 +206,44 @@ function Header() {
 }
 
 function Footer() {
+  const links = [
+    { to: '/services', label: 'Services' },
+    { to: '/insights', label: 'Insights' },
+    { to: '/disclaimer', label: 'Disclaimer' },
+    { to: '/privacy-policy', label: 'Privacy Policy' },
+    { to: '/terms-of-use', label: 'Terms of Use' },
+  ]
   return (
-    <footer className="bg-ink text-paper/80">
-      <div className="wrap py-16">
-        <Logo tone="paper" className="h-auto w-full max-w-[44rem] opacity-90" />
-      </div>
-      <div className="wrap grid gap-10 border-t border-paper/15 py-12 text-[0.95rem] md:grid-cols-12">
-        <address className="not-italic leading-relaxed md:col-span-5">
-          {firm.address.map((l) => (
-            <span key={l} className="block">
-              {l}
-            </span>
-          ))}
-        </address>
-        <ul className="space-y-1.5 md:col-span-4">
+    <footer className="bg-ink text-paper/85">
+      <div className="wrap grid gap-10 py-14 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <Logo tone="paper" className="h-auto w-full max-w-[24rem] opacity-90" />
+          <p className="mt-6 text-[0.92rem]">FRN {firm.frn} · {firm.proprietor}, Proprietor, M. No. {firm.membership}</p>
+          <address className="mt-4 text-[0.92rem] not-italic leading-relaxed">{firm.address.join(', ')}</address>
+        </div>
+        <ul className="space-y-1.5 text-[0.95rem] md:col-span-3 md:col-start-7">
           {services.map((s) => (
             <li key={s.slug}>
-              <Link to={`/services/${s.slug}`} className="hover:text-lime">
-                {s.name}
-              </Link>
+              <Link to={`/services/${s.slug}`} className="hover:text-lime">{s.menuName}</Link>
             </li>
           ))}
         </ul>
-        <ul className="space-y-1.5 md:col-span-3">
+        <ul className="space-y-1.5 text-[0.95rem] md:col-span-3">
           <li><a className="hover:text-lime" href={firm.phoneHref}>{firm.phoneDisplay}</a></li>
           <li><a className="hover:text-lime" href={`mailto:${firm.email}`}>{firm.email}</a></li>
           <li><a className="hover:text-lime" href={firm.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           <li><a className="hover:text-lime" href={firm.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         </ul>
       </div>
-      <div className="wrap border-t border-paper/15 py-6 text-sm text-paper/60">
-        © {new Date().getFullYear()} H Dang and Company, Chartered Accountants
+      <div className="wrap flex flex-col gap-4 border-t border-paper/15 py-6 text-[0.85rem] md:flex-row md:items-center md:justify-between">
+        <p>© {new Date().getFullYear()} H Dang and Company, Chartered Accountants</p>
+        <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          {links.map((l) => (
+            <li key={l.to}><Link to={l.to} className="underline underline-offset-4 hover:text-lime">{l.label}</Link></li>
+          ))}
+        </ul>
       </div>
+      <div className="wrap border-t border-paper/15 py-6 text-[0.82rem] text-paper/75">{firm.icaiNote}</div>
     </footer>
   )
 }
