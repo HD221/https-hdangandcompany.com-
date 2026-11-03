@@ -21,7 +21,7 @@ const milestones = [
   { when: 'July 2022', title: 'Associate Chartered Accountant', text: 'Admitted as an Associate member of the ICAI, M. No. 615134.' },
   { when: 'December 2022', title: 'Certificate of Practice', text: 'Certificate of Practice issued by the ICAI.' },
   { when: '2022', title: 'Firm established', text: 'H Dang and Company registered with the ICAI under FRN 158649W.' },
-  { when: 'Today', title: 'A team of ten', text: 'FP&A analysts, senior and junior accountants, human resources and office administration.' },
+  { when: 'Today', title: 'A dedicated finance team', text: 'FP&A analysts, senior and junior accountants, human resources and office administration.' },
 ]
 
 function FirmDetails() {
