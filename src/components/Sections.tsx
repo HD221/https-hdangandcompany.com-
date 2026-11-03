@@ -90,8 +90,8 @@ export function FinancePackCard() {
   return (
     <motion.div
       className="relative"
-      initial={{ opacity: 0, y: 30, rotate: reduce ? 0 : 1.5 }}
-      animate={{ opacity: 1, y: 0, rotate: 0 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={t(0.4)}
     >
       <div className="absolute inset-0 translate-x-4 translate-y-4 border border-green/25 bg-green/5" aria-hidden="true" />
