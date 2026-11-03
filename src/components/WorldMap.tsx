@@ -135,7 +135,7 @@ export default function WorldReach() {
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-8">
             <p className="eyebrow text-lime">Where we work</p>
-            <SplitText id="world-reach" text="Headquartered in Vadodara, offering *cross-border & international client support.*" className="display mt-4 text-4xl md:text-[3.4rem] md:leading-[1.05] [&_.text-green]:text-lime" />
+            <SplitText id="world-reach" text="Your finance team, *wherever your business is.*" className="display mt-4 text-4xl md:text-[3.4rem] md:leading-[1.05] [&_.text-green]:text-lime" />
           </div>
           <p className="text-lg text-paper/85 md:col-span-4">
             Wherever your business is based, the work is done by the same team, in your systems and on your calendar.
