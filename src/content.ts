@@ -6,7 +6,7 @@ export const firm = {
   tagline: 'Chartered Accountants',
   frn: '158649W',
   established: '2022',
-  teamSize: 'CA-led',
+  teamSize: 'Dedicated team',
   proprietor: 'CA Hritik Dang',
   membership: '615134',
   phoneDisplay: '+91 88492 20024',
