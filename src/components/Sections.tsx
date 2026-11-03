@@ -626,7 +626,7 @@ export function StandardsSection({ heading = true }: { heading?: boolean }) {
             <Eyebrow>{heading ? 'The firm' : 'Our standards'}</Eyebrow>
             <SplitText id="standards" text="How we handle *your work*" className="display mt-4 text-4xl md:text-6xl" />
           </div>
-          <p className="text-muted md:col-span-5">
+          <p className="text-lg leading-relaxed text-muted md:col-span-5 md:text-xl">
             The same rules apply to every engagement, whether we keep your books, plan your numbers or prepare you for a raise.
           </p>
         </div>
