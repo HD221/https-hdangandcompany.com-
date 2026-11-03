@@ -315,14 +315,14 @@ export const howWeWork = [
 ]
 
 // Office hours: Monday to Friday, 10:00 AM to 2:30 AM IST (UTC+5:30).
-// Client zones show a daytime window (from 8:00 AM local) that sits inside the office hours
-// in BOTH winter and summer, so the times never change with daylight saving.
+// Each zone shows the hours covered in BOTH winter and summer, so the times stay fixed all year.
+// prev: the session starts the previous evening in that zone.
 export const hoursTable = [
-  { region: 'India Standard Time (IST)', note: 'Our office', hours: { open: '10:00 AM', close: '2:30 AM (next day)' } },
-  { region: 'UK time', note: 'GMT / BST', hours: { open: '8:00 AM', close: '9:00 PM' } },
-  { region: 'Eastern Time', note: 'EST / EDT', hours: { open: '8:00 AM', close: '4:00 PM' } },
-  { region: 'Central Time', note: 'CST / CDT', hours: { open: '8:00 AM', close: '3:00 PM' } },
-  { region: 'Pacific Time', note: 'PST / PDT', hours: { open: '8:00 AM', close: '1:00 PM' } },
+  { region: 'India Standard Time (IST)', note: 'Our office', hours: { open: '10:00 AM', close: '2:30 AM' } },
+  { region: 'UK time', note: 'GMT / BST', hours: { open: '5:30 AM', close: '9:00 PM' } },
+  { region: 'Eastern Time', note: 'EST / EDT', hours: { open: '12:30 AM', close: '4:00 PM' } },
+  { region: 'Central Time', note: 'CST / CDT', hours: { open: '11:30 PM', close: '3:00 PM', prev: true } },
+  { region: 'Pacific Time', note: 'PST / PDT', hours: { open: '9:30 PM', close: '1:00 PM', prev: true } },
 ] as { region: string; note: string; hours: Slot }[]
 
 type Slot = { open: string; close: string; prev?: boolean }

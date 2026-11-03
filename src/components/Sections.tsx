@@ -491,7 +491,9 @@ function SlotCell({ slot }: { slot: { open: string; close: string; prev?: boolea
   return (
     <span className="whitespace-nowrap">
       <span className="font-medium">{slot.open}</span>
-      <span className="mx-1.5 text-muted">to</span>
+      {slot.prev && <sup className="ml-0.5 text-green" aria-label="previous evening">*</sup>}
+      <span className="mx-1.5 text-muted" aria-hidden="true">→</span>
+      <span className="sr-only"> to </span>
       <span className="font-medium">{slot.close}</span>
     </span>
   )
@@ -502,12 +504,12 @@ export function HoursTable() {
     <div>
       <div className="relative overflow-x-auto">
         <table className="w-full min-w-[22rem] text-left text-[0.95rem]">
-          <caption className="sr-only">Working hours, Monday to Friday, in each time zone, from opening to closing time. Fixed all year.</caption>
+          <caption className="sr-only">Working hours, Monday to Friday, in each time zone. Fixed all year.</caption>
           <thead>
             <tr className="border-b-2 border-green-ink">
               <th scope="col" className="py-3 pr-4 font-semibold">Time zone</th>
               <th scope="col" className="py-3 font-semibold">
-                Hours
+                Open → Close
                 <span className="block text-[0.78rem] font-normal text-muted">Fixed all year</span>
               </th>
             </tr>
@@ -528,7 +530,7 @@ export function HoursTable() {
         </table>
       </div>
       <p className="mt-3 text-[0.82rem] text-muted">
-        Monday to Friday, in your local time. These hours apply all year, in winter and in summer.
+        Monday to Friday. These hours apply all year, in winter and in summer. <span className="text-green">*</span> Starts the previous evening, local time.
       </p>
     </div>
   )
