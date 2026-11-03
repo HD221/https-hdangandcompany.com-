@@ -9,7 +9,7 @@ export const pages: Meta[] = [
     path: '/',
     title: 'H Dang and Company | Virtual CFO, FP&A and Fundraising Support',
     description:
-      'Chartered Accountants in Vadodara serving India, the US and Canada: virtual CFO, FP&A, virtual bookkeeping and fundraising readiness for growing businesses.',
+      'Chartered Accountants in Vadodara serving clients worldwide: virtual CFO, FP&A, virtual bookkeeping and fundraising readiness for growing businesses.',
   },
   {
     path: '/services',
