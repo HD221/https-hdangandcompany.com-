@@ -314,11 +314,17 @@ export const howWeWork = [
   { title: 'Review', text: 'A regular call on the numbers and decisions ahead.' },
 ]
 
+// Office hours: Monday to Friday, 10:00 AM to 2:30 AM IST (UTC+5:30), converted to each zone.
+// prev: the session starts the previous evening in that zone.
 export const hoursTable = [
-  { region: 'IST, our office', standard: '10:00 AM – 2:30 AM', daylight: '—' },
-  { region: 'Eastern Time', standard: 'until 4:00 PM', daylight: 'until 5:00 PM' },
-  { region: 'Pacific Time', standard: 'until 1:00 PM', daylight: 'until 2:00 PM' },
-]
+  { region: 'India Standard Time (IST)', note: 'Our office', standard: { open: '10:00 AM', close: '2:30 AM' }, daylight: null },
+  { region: 'UK time (GMT / BST)', note: '', standard: { open: '4:30 AM', close: '9:00 PM' }, daylight: { open: '5:30 AM', close: '10:00 PM' } },
+  { region: 'Eastern Time (EST / EDT)', note: '', standard: { open: '11:30 PM', close: '4:00 PM', prev: true }, daylight: { open: '12:30 AM', close: '5:00 PM' } },
+  { region: 'Central Time (CST / CDT)', note: '', standard: { open: '10:30 PM', close: '3:00 PM', prev: true }, daylight: { open: '11:30 PM', close: '4:00 PM', prev: true } },
+  { region: 'Pacific Time (PST / PDT)', note: '', standard: { open: '8:30 PM', close: '1:00 PM', prev: true }, daylight: { open: '9:30 PM', close: '2:00 PM', prev: true } },
+] as { region: string; note: string; standard: Slot; daylight: Slot | null }[]
+
+type Slot = { open: string; close: string; prev?: boolean }
 
 export const platforms = ['QuickBooks Online', 'Xero', 'Zoho Books', 'Tally', 'MYOB', 'Sage 50', 'Yardi Breeze', 'AppFolio', 'Fathom', 'Monday.com']
 

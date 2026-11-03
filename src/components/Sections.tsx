@@ -510,28 +510,59 @@ export function HowWeWorkSteps() {
   )
 }
 
+function SlotCell({ slot }: { slot: { open: string; close: string; prev?: boolean } | null }) {
+  if (!slot) return <span className="text-muted">Same all year</span>
+  return (
+    <span className="whitespace-nowrap">
+      <span className="font-medium">{slot.open}</span>
+      {slot.prev && <sup className="ml-0.5 text-green" aria-label="previous evening">*</sup>}
+      <span className="mx-1.5 text-muted" aria-hidden="true">→</span>
+      <span className="sr-only"> to </span>
+      <span className="font-medium">{slot.close}</span>
+    </span>
+  )
+}
+
 export function HoursTable() {
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[26rem] text-left text-[0.95rem]">
-        <caption className="sr-only">Working hours by time zone</caption>
-        <thead>
-          <tr className="border-b-2 border-green-ink">
-            <th scope="col" className="py-3 font-semibold">Region</th>
-            <th scope="col" className="py-3 font-semibold">Standard time</th>
-            <th scope="col" className="py-3 font-semibold">Daylight time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {hoursTable.map((r) => (
-            <tr key={r.region} className="border-b border-rule">
-              <td className="py-3.5">{r.region}</td>
-              <td className="py-3.5 tabular-nums">{r.standard}</td>
-              <td className="py-3.5 tabular-nums">{r.daylight}</td>
+    <div>
+      <div className="relative overflow-x-auto">
+        <table className="w-full min-w-[34rem] text-left text-[0.95rem]">
+          <caption className="sr-only">Working hours, Monday to Friday, in each time zone: opening time to closing time</caption>
+          <thead>
+            <tr className="border-b-2 border-green-ink">
+              <th scope="col" className="py-3 pr-4 font-semibold">Time zone</th>
+              <th scope="col" className="py-3 pr-4 font-semibold">
+                Winter
+                <span className="block text-[0.78rem] font-normal text-muted">Standard time</span>
+              </th>
+              <th scope="col" className="py-3 font-semibold">
+                Summer
+                <span className="block text-[0.78rem] font-normal text-muted">Daylight saving time</span>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {hoursTable.map((r, i) => (
+              <tr key={r.region} className={`border-b border-rule ${i === 0 ? 'bg-green/[0.06]' : ''}`}>
+                <th scope="row" className="py-3.5 pr-4 text-left font-normal">
+                  <span className="block font-semibold">{r.region}</span>
+                  {r.note && <span className="block text-[0.8rem] text-muted">{r.note}</span>}
+                </th>
+                <td className="py-3.5 pr-4 tabular-nums">
+                  <SlotCell slot={r.standard} />
+                </td>
+                <td className="py-3.5 tabular-nums">
+                  <SlotCell slot={r.daylight} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-[0.82rem] text-muted">
+        Monday to Friday, opening time → closing time. <span className="text-green">*</span> Starts the previous evening, local time.
+      </p>
     </div>
   )
 }
