@@ -10,7 +10,8 @@ export default function Article() {
   const { scrollYProgress } = useScroll()
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
   if (!a) return <NotFound />
-  const related = articles.filter((x) => x.slug !== a.slug).slice(0, 3)
+  const others = articles.filter((x) => x.slug !== a.slug)
+  const related = [...others.filter((x) => x.category === a.category), ...others.filter((x) => x.category !== a.category)].slice(0, 3)
 
   return (
     <>
@@ -70,9 +71,13 @@ export default function Article() {
           <ul className="mt-8 grid gap-8 md:grid-cols-3">
             {related.map((r) => (
               <li key={r.slug} className="border-t-2 border-green-ink pt-4">
-                <span className="eyebrow text-[0.65rem] text-green">{r.category}</span>
-                <p className="display mt-2 text-2xl">{r.title}</p>
-                <p className="mt-1 text-[0.85rem] text-muted">{r.minutes} min read · coming soon</p>
+                <Link to={`/blogs/${r.slug}`} className="group block">
+                  <span className="eyebrow text-[0.65rem] text-green">{r.category}</span>
+                  <span className="display mt-2 block text-2xl transition-colors group-hover:text-green">{r.title}</span>
+                  <span className="link-arrow mt-1 text-[0.85rem] text-muted">
+                    {r.minutes} min read <span className="arrow" aria-hidden="true">→</span>
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>

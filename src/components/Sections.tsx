@@ -690,11 +690,15 @@ export function InsightsTeaser() {
         </Reveal>
         <ul className="divide-y divide-rule border-y border-rule">
           {rest.map((a, i) => (
-            <Reveal as="li" key={a.slug} delay={i * 0.08} className="py-6">
+            <Reveal as="li" key={a.slug} delay={i * 0.08}>
+              <Link to={`/blogs/${a.slug}`} className="group block py-6">
                 <span className="eyebrow text-[0.65rem] text-green">{a.category}</span>
-                <p className="display mt-2 text-2xl">{a.title}</p>
-                <p className="mt-1 text-[0.85rem] text-muted">{a.minutes} min read · coming soon</p>
-              </Reveal>
+                <span className="display mt-2 block text-2xl transition-colors group-hover:text-green">{a.title}</span>
+                <span className="link-arrow mt-1 text-[0.85rem] text-muted">
+                  {a.minutes} min read <span className="arrow" aria-hidden="true">→</span>
+                </span>
+              </Link>
+            </Reveal>
           ))}
         </ul>
       </div>

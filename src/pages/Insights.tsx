@@ -13,7 +13,7 @@ function Card({ a }: { a: Article }) {
       <span className={`display mt-3 block text-2xl md:text-3xl ${live ? 'group-hover:text-green' : ''}`}>{a.title}</span>
       <span className="mt-3 block text-[0.95rem] text-muted">{a.summary}</span>
       <span className="mt-4 block text-[0.85rem] text-muted">
-        {a.minutes} min read{live ? '' : ' · coming soon'}
+        {a.minutes} min read
       </span>
     </>
   )

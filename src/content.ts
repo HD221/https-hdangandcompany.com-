@@ -1,3 +1,4 @@
+import { blogBodies, newArticles } from './data/blogPosts'
 // All facts and copy on this site come from the firm's own website design document.
 // Contact details reflect the latest address and email supplied by the firm.
 
@@ -359,9 +360,9 @@ export type Article = {
   body?: ArticleBlock[]
 }
 
-export const insightCategories = ['Virtual CFO', 'FP&A', 'Bookkeeping', 'Fundraising', 'Tax and compliance']
+export const insightCategories = ['Virtual CFO', 'FP&A', 'Bookkeeping', 'Fundraising', 'Tax and compliance', 'Specialist']
 
-export const articles: Article[] = [
+const baseArticles: Article[] = [
   {
     slug: 'what-investors-look-for-in-a-startup-financial-model',
     category: 'Fundraising',
@@ -498,6 +499,12 @@ export const articles: Article[] = [
     summary: 'A practical order of work for bringing books current before a year-end, a loan application or a raise.',
     minutes: 5,
   },
+]
+
+// Full text for every article lives in src/data/blogPosts.ts
+export const articles: Article[] = [
+  ...baseArticles.map((a) => (a.body ? a : { ...a, author: 'CA Hritik Dang', ...blogBodies[a.slug] })),
+  ...newArticles,
 ]
 
 export type FaqGroup = { topic: string; items: QA[] }
