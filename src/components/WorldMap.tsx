@@ -113,8 +113,43 @@ export function WorldMapGraphic() {
       )}
       <circle cx={home.x} cy={home.y} r={6} fill="#c3f18a" stroke="#1b4239" strokeWidth={2} />
       <g transform={`translate(${home.x + 10} ${home.y + 22})`}>
-        <rect x={0} y={-13} width={46} height={19} fill="#f7f5f1" />
-        <text x={8} y={1} fontSize={11} fontWeight={700} fill="#1b4239">
+        <rect x={0} y={-14} width={66} height={20} fill="#f7f5f1" />
+        {/* Flag of India (3:2, Ashoka Chakra with 24 spokes) */}
+        <g transform="translate(6 -10)" aria-hidden="true">
+          <rect width={18} height={4} fill="#FF9933" />
+          <rect y={4} width={18} height={4} fill="#FFFFFF" />
+          <rect y={8} width={18} height={4} fill="#138808" />
+          <rect width={18} height={12} fill="none" stroke="rgba(0,0,0,0.25)" strokeWidth={0.4} />
+          <g transform="translate(9 6)" stroke="#000080" strokeWidth={0.22}>
+            <circle r={1.5} fill="none" strokeWidth={0.35} />
+            <circle r={0.35} fill="#000080" stroke="none" />
+            <line x1={0} y1={0} x2={1.4} y2={0.0} />
+            <line x1={0} y1={0} x2={1.35} y2={0.36} />
+            <line x1={0} y1={0} x2={1.21} y2={0.7} />
+            <line x1={0} y1={0} x2={0.99} y2={0.99} />
+            <line x1={0} y1={0} x2={0.7} y2={1.21} />
+            <line x1={0} y1={0} x2={0.36} y2={1.35} />
+            <line x1={0} y1={0} x2={0.0} y2={1.4} />
+            <line x1={0} y1={0} x2={-0.36} y2={1.35} />
+            <line x1={0} y1={0} x2={-0.7} y2={1.21} />
+            <line x1={0} y1={0} x2={-0.99} y2={0.99} />
+            <line x1={0} y1={0} x2={-1.21} y2={0.7} />
+            <line x1={0} y1={0} x2={-1.35} y2={0.36} />
+            <line x1={0} y1={0} x2={-1.4} y2={0.0} />
+            <line x1={0} y1={0} x2={-1.35} y2={-0.36} />
+            <line x1={0} y1={0} x2={-1.21} y2={-0.7} />
+            <line x1={0} y1={0} x2={-0.99} y2={-0.99} />
+            <line x1={0} y1={0} x2={-0.7} y2={-1.21} />
+            <line x1={0} y1={0} x2={-0.36} y2={-1.35} />
+            <line x1={0} y1={0} x2={-0.0} y2={-1.4} />
+            <line x1={0} y1={0} x2={0.36} y2={-1.35} />
+            <line x1={0} y1={0} x2={0.7} y2={-1.21} />
+            <line x1={0} y1={0} x2={0.99} y2={-0.99} />
+            <line x1={0} y1={0} x2={1.21} y2={-0.7} />
+            <line x1={0} y1={0} x2={1.35} y2={-0.36} />
+          </g>
+        </g>
+        <text x={30} y={1} fontSize={11} fontWeight={700} fill="#1b4239">
           India
         </text>
       </g>
