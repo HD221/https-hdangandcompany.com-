@@ -599,21 +599,4 @@ export const faqGroups: FaqGroup[] = [
       },
     ],
   },
-  {
-    topic: 'Tax, audit and compliance',
-    items: [
-      {
-        q: 'Do you handle tax, audit and compliance in India?',
-        a: 'Yes. Audit and assurance, GST, income tax and TDS, cross-border receipts, business setup, and responses to GST and income tax notices.',
-      },
-      {
-        q: 'Can you help exporters of services with LUT and FIRC?',
-        a: 'Yes. We handle LUT, FIRC / e-BRC and export-of-services compliance.',
-      },
-      {
-        q: 'Do you file returns for NRIs?',
-        a: 'Yes. Income tax returns are prepared for businesses, individuals and NRIs, along with TDS compliance.',
-      },
-    ],
-  },
 ]
