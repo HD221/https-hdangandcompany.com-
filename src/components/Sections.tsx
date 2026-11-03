@@ -387,7 +387,7 @@ export function MonthlyCalendar() {
             return (
               <li
                 key={c.title}
-                className={`relative overflow-hidden border-l-2 p-5 transition-all duration-500 md:border-l-0 md:border-t-2 ${
+                className={`relative overflow-hidden border-l-2 p-5 transition-all duration-500 md:border-l-0 ${
                   current
                     ? 'border-green bg-green text-paper shadow-[0_24px_40px_-24px_rgba(27,66,57,0.6)] md:-translate-y-2'
                     : done
