@@ -11,7 +11,7 @@ export const legalDocs: Record<string, Doc> = {
       {
         h: 'No professional advice',
         p: [
-          'The content on this website, including articles in Insights, is general information. It does not take account of your circumstances and is not a substitute for advice on your specific situation.',
+          'The content on this website, including articles in Blogs, is general information. It does not take account of your circumstances and is not a substitute for advice on your specific situation.',
           'No client relationship is created by reading this website or by sending an enquiry. An engagement begins only when both parties sign an engagement letter.',
         ],
       },

@@ -7,6 +7,7 @@ import Industries from './pages/Industries'
 import HowWeWork from './pages/HowWeWork'
 import Firm from './pages/Firm'
 import Insights from './pages/Insights'
+import Faqs from './pages/Faqs'
 import Article from './pages/Article'
 import Contact from './pages/Contact'
 import Legal from './pages/Legal'
@@ -22,8 +23,9 @@ export default function App() {
         <Route path="industries" element={<Industries />} />
         <Route path="how-we-work" element={<HowWeWork />} />
         <Route path="the-firm" element={<Firm />} />
-        <Route path="insights" element={<Insights />} />
-        <Route path="insights/:slug" element={<Article />} />
+        <Route path="blogs" element={<Insights />} />
+        <Route path="blogs/:slug" element={<Article />} />
+        <Route path="faqs" element={<Faqs />} />
         <Route path="contact" element={<Contact />} />
         <Route path="disclaimer" element={<Legal doc="disclaimer" />} />
         <Route path="privacy-policy" element={<Legal doc="privacy-policy" />} />

@@ -3,3 +3,5 @@
 /services/financial-advisory-and-virtual-cfo   /services/virtual-cfo              301
 /services/rpa-and-data-analytics               /services                          301
 /services/cryptocurrency-and-blockchain        /services                          301
+/insights                                      /blogs                             301
+/insights/*                                    /blogs/:splat                      301

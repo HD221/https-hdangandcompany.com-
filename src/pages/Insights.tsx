@@ -18,7 +18,7 @@ function Card({ a }: { a: Article }) {
     </>
   )
   return live ? (
-    <Link to={`/insights/${a.slug}`} className="group block border-t-2 border-green-ink pt-5">
+    <Link to={`/blogs/${a.slug}`} className="group block border-t-2 border-green-ink pt-5">
       {inner}
     </Link>
   ) : (
@@ -76,8 +76,8 @@ export default function Insights() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: 'Home', to: '/' }, { label: 'Insights' }]}
-        title="*Insights*"
+        crumbs={[{ label: 'Home', to: '/' }, { label: 'Blogs' }]}
+        title="*Blogs*"
         intro="Practical guides on finance operations, planning and fundraising for growing businesses, written by our team."
       >
         <ul className="flex flex-wrap gap-2" aria-label="Filter articles by topic">
@@ -98,7 +98,7 @@ export default function Insights() {
 
       <section className="wrap py-16 md:py-20" aria-label="Featured article">
         <Reveal>
-          <Link to={`/insights/${featured.slug}`} className="group grid border border-rule md:grid-cols-2">
+          <Link to={`/blogs/${featured.slug}`} className="group grid border border-rule md:grid-cols-2">
             <div className="flex min-h-[18rem] flex-col bg-green-ink p-8 text-paper md:p-12">
               <span className="eyebrow text-[0.68rem] text-lime">Featured · {featured.category}</span>
               <span className="display mt-auto pt-10 text-4xl transition-colors group-hover:text-lime md:text-5xl">{featured.title}</span>

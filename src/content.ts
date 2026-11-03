@@ -499,3 +499,121 @@ export const articles: Article[] = [
     minutes: 5,
   },
 ]
+
+export type FaqGroup = { topic: string; items: QA[] }
+
+const svcFaq = (slug: string) => services.find((s) => s.slug === slug)?.faq ?? []
+
+export const faqGroups: FaqGroup[] = [
+  {
+    topic: 'Working with us',
+    items: [
+      {
+        q: 'How does an engagement start?',
+        a: 'With a discovery call about your business, current books and deadlines. We then send an engagement letter with the written scope, deliverables and timelines, onboard with secure access and clean-up of past periods, and move into a fixed monthly cycle with a regular review call.',
+      },
+      {
+        q: 'What ways can we work with you?',
+        a: 'Three engagement models: a monthly engagement for ongoing bookkeeping, FP&A and virtual CFO work; a project engagement with a defined start and end, such as fundraising readiness, feasibility studies, cap table rebuilds or books clean-up; and a dedicated team of accountants or FP&A analysts working as an extension of your in-house finance team.',
+      },
+      {
+        q: 'What are your working hours?',
+        a: `${firm.hours}. Exact dates for each piece of work are fixed in your engagement letter.`,
+      },
+      { q: 'How quickly do you respond to an enquiry?', a: 'We respond within one working day (IST).' },
+      {
+        q: 'Who reviews the work?',
+        a: 'Every deliverable is reviewed by a Chartered Accountant before it reaches you.',
+      },
+      {
+        q: 'What does a typical month look like?',
+        a: 'Days 1–5: reconciliations, with open items flagged to you. Days 6–10: accruals and adjustments, and statements reviewed by a Chartered Accountant. Days 10–15: KPIs, budget vs actual, cash position and an updated forecast. Mid-month: a review call on the numbers, decisions ahead and lender or investor needs.',
+      },
+      {
+        q: 'Which industries do you work with?',
+        a: 'Startups and SaaS, e-commerce and D2C, real estate, import and distribution, professional services, hospitality, healthcare practices and manufacturing.',
+      },
+    ],
+  },
+  {
+    topic: 'Security and ethics',
+    items: [
+      faqs[1],
+      {
+        q: 'Do you work in our own accounting system?',
+        a: 'Yes. We work inside your accounting system, so your books and records stay with you.',
+      },
+      {
+        q: 'Which platforms do you work in?',
+        a: `${platforms.join(', ')}.`,
+      },
+      {
+        q: 'Is the firm registered with the ICAI?',
+        a: `Yes. H Dang and Company is registered with the Institute of Chartered Accountants of India under FRN ${firm.frn}. The proprietor is ${firm.proprietor}, ICAI M. No. ${firm.membership}.`,
+      },
+    ],
+  },
+  {
+    topic: 'Virtual CFO and FP&A',
+    items: [
+      faqs[2],
+      ...svcFaq('virtual-cfo'),
+      {
+        q: 'What do we receive from a virtual CFO each month?',
+        a: 'A monthly CFO pack, a rolling cash forecast, a decisions log and a scheduled review call.',
+      },
+      ...svcFaq('fpa'),
+      {
+        q: 'What is in the monthly management pack?',
+        a: 'A one-page summary, KPIs, budget vs actual and an updated forecast.',
+      },
+    ],
+  },
+  {
+    topic: 'Bookkeeping',
+    items: [
+      faqs[0],
+      ...svcFaq('virtual-bookkeeping'),
+      faqs[4],
+      {
+        q: 'What do we receive from bookkeeping?',
+        a: 'Balance sheet, P&L, cash-flow summary, reconciliation reports and a short note on open items.',
+      },
+    ],
+  },
+  {
+    topic: 'Fundraising and specialist work',
+    items: [
+      ...svcFaq('fundraising-readiness'),
+      {
+        q: 'What do we receive from fundraising readiness?',
+        a: 'An editable Excel or Google Sheets model, a pitch deck in your preferred format, a written business plan and an organised data room.',
+      },
+      {
+        q: 'Can you help with our cap table, SAFEs or ESOP?',
+        a: 'Yes. We rebuild cap tables from share records and agreements, model SAFE and convertible note conversion at different valuations and caps, size ESOP pools and show dilution under different round terms.',
+      },
+      {
+        q: 'Do you prepare feasibility studies and project reports?',
+        a: 'Yes. We cover market and demand, costing and unit economics, five-year projections and returns analysis, and deliver a written report and the underlying model for your board, partners or bank.',
+      },
+    ],
+  },
+  {
+    topic: 'Tax, audit and compliance',
+    items: [
+      {
+        q: 'Do you handle tax, audit and compliance in India?',
+        a: 'Yes. Audit and assurance, GST, income tax and TDS, cross-border receipts, business setup, and responses to GST and income tax notices.',
+      },
+      {
+        q: 'Can you help exporters of services with LUT and FIRC?',
+        a: 'Yes. We handle LUT, FIRC / e-BRC and export-of-services compliance.',
+      },
+      {
+        q: 'Do you file returns for NRIs?',
+        a: 'Yes. Income tax returns are prepared for businesses, individuals and NRIs, along with TDS compliance.',
+      },
+    ],
+  },
+]

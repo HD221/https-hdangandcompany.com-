@@ -27,7 +27,8 @@ const nav = [
   { to: '/industries', label: 'Industries' },
   { to: '/how-we-work', label: 'How we work' },
   { to: '/the-firm', label: 'The firm' },
-  { to: '/insights', label: 'Insights' },
+  { to: '/blogs', label: 'Blogs' },
+  { to: '/faqs', label: 'FAQs' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -208,7 +209,8 @@ function Header() {
 function Footer() {
   const links = [
     { to: '/services', label: 'Services' },
-    { to: '/insights', label: 'Insights' },
+    { to: '/blogs', label: 'Blogs' },
+    { to: '/faqs', label: 'FAQs' },
     { to: '/disclaimer', label: 'Disclaimer' },
     { to: '/privacy-policy', label: 'Privacy Policy' },
     { to: '/terms-of-use', label: 'Terms of Use' },

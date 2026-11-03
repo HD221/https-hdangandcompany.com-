@@ -37,6 +37,16 @@
       "source": "/services/cryptocurrency-and-blockchain",
       "destination": "/services",
       "permanent": true
+    },
+    {
+      "source": "/insights",
+      "destination": "/blogs",
+      "permanent": true
+    },
+    {
+      "source": "/insights/:slug",
+      "destination": "/blogs/:slug",
+      "permanent": true
     }
   ]
 }

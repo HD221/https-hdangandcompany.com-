@@ -34,11 +34,16 @@ export const pages: Meta[] = [
     description: 'H Dang and Company, Chartered Accountants: ICAI FRN 158649W, proprietor CA Hritik Dang (ICAI M. No. 615134), established 2022, with a dedicated finance team.',
   },
   {
-    path: '/insights',
-    title: 'Insights' + suffix,
+    path: '/blogs',
+    title: 'Blogs' + suffix,
     description: 'Practical guides on finance operations, planning and fundraising for growing businesses.',
   },
-  ...articles.filter((a) => a.body).map((a) => ({ path: `/insights/${a.slug}`, title: a.title + suffix, description: a.summary })),
+  ...articles.filter((a) => a.body).map((a) => ({ path: `/blogs/${a.slug}`, title: a.title + suffix, description: a.summary })),
+  {
+    path: '/faqs',
+    title: 'Frequently asked questions' + suffix,
+    description: 'Answers on working with H Dang and Company: engagements, security, virtual CFO, FP&A, bookkeeping, fundraising readiness, and tax, audit and compliance.',
+  },
   {
     path: '/contact',
     title: 'Send an enquiry' + suffix,

@@ -670,16 +670,16 @@ export function InsightsTeaser() {
     <section aria-labelledby="insights-teaser" className="wrap py-20 md:py-28">
       <div className="flex items-end justify-between gap-6">
         <div>
-          <Eyebrow>Insights</Eyebrow>
+          <Eyebrow>Blogs</Eyebrow>
           <SplitText id="insights-teaser" text="Articles and *guides*" className="display mt-4 text-4xl md:text-6xl" />
         </div>
-        <Link to="/insights" className="link-arrow hidden font-semibold text-green md:inline-flex">
-          View all articles <span className="arrow" aria-hidden="true">→</span>
+        <Link to="/blogs" className="link-arrow hidden font-semibold text-green md:inline-flex">
+          View all blogs <span className="arrow" aria-hidden="true">→</span>
         </Link>
       </div>
       <div className="mt-12 grid gap-6 md:grid-cols-2">
         <Reveal>
-          <Link to={`/insights/${featured.slug}`} className="group flex h-full min-h-[22rem] flex-col bg-green-ink p-8 text-paper md:p-10">
+          <Link to={`/blogs/${featured.slug}`} className="group flex h-full min-h-[22rem] flex-col bg-green-ink p-8 text-paper md:p-10">
             <span className="eyebrow text-[0.68rem] text-lime">Featured · {featured.category}</span>
             <span className="display mt-5 text-4xl transition-colors group-hover:text-lime md:text-5xl">{featured.title}</span>
             <span className="mt-4 text-paper/85">{featured.summary}</span>
@@ -704,8 +704,8 @@ export function InsightsTeaser() {
 
 /* ---------- FAQ accordion ---------- */
 
-export function FaqList({ items }: { items: QA[] }) {
-  const [open, setOpen] = useState(0)
+export function FaqList({ items, defaultOpen = 0 }: { items: QA[]; defaultOpen?: number }) {
+  const [open, setOpen] = useState(defaultOpen)
   const reduce = useReducedMotion()
   return (
     <ul className="border-b border-rule">
@@ -764,6 +764,9 @@ export function FaqSection({ items }: { items: QA[] }) {
             </a>
             .
           </p>
+          <Link to="/faqs" className="link-arrow mt-6 font-semibold text-green">
+            See all questions <span className="arrow" aria-hidden="true">→</span>
+          </Link>
         </div>
         <div className="md:col-span-7">
           <FaqList items={items} />

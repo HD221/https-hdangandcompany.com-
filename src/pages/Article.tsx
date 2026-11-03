@@ -17,7 +17,7 @@ export default function Article() {
       <header className="bg-green/[0.06]">
         <div className="mx-auto max-w-[46rem] px-4 py-16 md:py-24">
           <nav aria-label="Breadcrumb" className="text-[0.85rem] text-muted">
-            <Link to="/" className="underline underline-offset-4">Home</Link> / <Link to="/insights" className="underline underline-offset-4">Insights</Link> / {a.category}
+            <Link to="/" className="underline underline-offset-4">Home</Link> / <Link to="/blogs" className="underline underline-offset-4">Blogs</Link> / {a.category}
           </nav>
           <p className="eyebrow mt-6 text-[0.7rem] text-green">{a.category}</p>
           <SplitText as="h1" onMount text={a.title} className="display mt-4 text-5xl md:text-6xl" />
