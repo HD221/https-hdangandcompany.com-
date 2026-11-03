@@ -19,17 +19,46 @@ const register = [
 ]
 
 const milestones = [
-  { when: 'July 2022', title: 'Associate Chartered Accountant', text: 'Admitted as an Associate member of the ICAI, M. No. 615134.' },
-  { when: 'December 2022', title: 'Certificate of Practice', text: 'Certificate of Practice issued by the ICAI.' },
-  { when: '2022', title: 'Firm established', text: 'H Dang and Company registered with the ICAI under FRN 158649W.' },
-  { when: 'Today', title: 'A dedicated finance team', text: 'FP&A analysts, senior and junior accountants, human resources and office administration.' },
+  { when: 'July 2022', big: 'Jul 2022', title: 'Associate Chartered Accountant', text: 'Admitted as an Associate member of the ICAI, M. No. 615134.' },
+  { when: 'December 2022', big: 'Dec 2022', title: 'Certificate of Practice', text: 'Certificate of Practice issued by the ICAI.' },
+  { when: '2022', big: '2022', title: 'Firm established', text: 'H Dang and Company registered with the ICAI under FRN 158649W.' },
+  { when: 'Today', big: 'Today', title: 'A dedicated finance team', text: 'FP&A analysts, senior and junior accountants, human resources and office administration.' },
 ]
 
-function FirmDetails() {
-  const line = useRef<HTMLDivElement>(null)
+/** Milestone card: its big date fills with green as it scrolls into view. */
+function Milestone({ m, i }: { m: (typeof milestones)[number]; i: number }) {
+  const ref = useRef<HTMLLIElement>(null)
   const reduce = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: line, offset: ['start 0.85', 'start 0.4'] })
-  const width = useSpring(useTransform(scrollYProgress, [0, 1], ['0%', '100%']), { stiffness: 120, damping: 30 })
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'start 0.55'] })
+  const fill = useSpring(useTransform(scrollYProgress, [0, 1], [0, 100]), { stiffness: 90, damping: 24 })
+  const size = useTransform(fill, (v) => `${reduce ? 100 : v}% 100%`)
+  return (
+    <motion.li
+      ref={ref}
+      className="group relative overflow-hidden border border-rule bg-white p-6 transition-shadow duration-500 hover:shadow-[0_24px_40px_-28px_rgba(27,66,57,0.55)] md:p-7"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={reduce ? undefined : { y: -6 }}
+      viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+      transition={{ duration: reduce ? 0 : 0.6, ease, delay: reduce ? 0 : i * 0.12 }}
+    >
+      <motion.span
+        aria-hidden="true"
+        className="display block whitespace-nowrap bg-no-repeat text-5xl leading-none text-transparent [-webkit-background-clip:text] [-webkit-text-stroke:1px_var(--color-green)] [background-clip:text] md:text-6xl"
+        style={{ backgroundImage: 'linear-gradient(var(--color-green), var(--color-green))', backgroundSize: size }}
+      >
+        {m.big}
+      </motion.span>
+      <span className="sr-only">{m.when}: </span>
+      <p className="display mt-6 text-2xl">{m.title}</p>
+      <p className="mt-1 text-[0.95rem] text-muted">{m.text}</p>
+      <span className="absolute bottom-0 left-0 h-1 w-0 bg-lime transition-all duration-500 group-hover:w-full" aria-hidden="true" />
+    </motion.li>
+  )
+}
+
+function FirmDetails() {
+  const reduce = useReducedMotion()
   return (
     <section aria-labelledby="firm-details" className="wrap py-20 md:py-28">
       <div className="grid gap-12 md:grid-cols-12">
@@ -85,23 +114,13 @@ function FirmDetails() {
         </Reveal>
       </div>
 
-      <div ref={line} className="mt-20 md:mt-28">
+      <div className="mt-20 md:mt-28">
         <h3 className="display text-3xl md:text-4xl">Milestones</h3>
-        <div className="relative mt-8">
-          <div className="absolute left-0 right-0 top-[0.45rem] hidden h-[2px] bg-rule md:block" aria-hidden="true">
-            <motion.div className="h-[2px] bg-green" style={{ width: reduce ? '100%' : width }} />
-          </div>
-          <ol className="grid gap-8 md:grid-cols-4">
-            {milestones.map((m, i) => (
-              <Reveal as="li" key={m.title} delay={i * 0.12} className="relative border-l-2 border-rule pl-5 md:border-l-0 md:pl-0">
-                <span className="absolute -left-[0.45rem] top-0 h-3.5 w-3.5 rounded-full border-2 border-paper bg-green md:static md:block" aria-hidden="true" />
-                <p className="eyebrow mt-0 text-[0.68rem] text-green md:mt-5">{m.when}</p>
-                <p className="display mt-2 text-2xl">{m.title}</p>
-                <p className="mt-1 text-[0.95rem] text-muted">{m.text}</p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {milestones.map((m, i) => (
+            <Milestone key={m.title} m={m} i={i} />
+          ))}
+        </ol>
       </div>
     </section>
   )
