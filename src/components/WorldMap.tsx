@@ -44,7 +44,7 @@ export function WorldMapGraphic() {
     <motion.svg
       viewBox={`0 0 ${WORLD_W} ${WORLD_H}`}
       role="img"
-      aria-label="Dotted world map with a pin on Vadodara, India, and arcs reaching out across the world"
+      aria-label="Dotted world map with a pin on our Vadodara headquarters and arcs reaching out across the world"
       className="block h-auto w-full"
       initial={reduce ? false : 'hidden'}
       whileInView="show"
@@ -133,11 +133,11 @@ export default function WorldReach() {
     <section aria-labelledby="world-reach" className="relative overflow-hidden bg-green-ink text-paper">
       <div className="wrap py-20 md:py-28">
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-7">
+          <div className="md:col-span-8">
             <p className="eyebrow text-lime">Where we work</p>
-            <SplitText id="world-reach" text="From Vadodara, *for clients worldwide.*" className="display mt-4 text-4xl md:text-6xl [&_.text-green]:text-lime" />
+            <SplitText id="world-reach" text="Headquartered in Vadodara, offering *cross-border & international client support.*" className="display mt-4 text-4xl md:text-[3.4rem] md:leading-[1.05] [&_.text-green]:text-lime" />
           </div>
-          <p className="text-lg text-paper/85 md:col-span-5">
+          <p className="text-lg text-paper/85 md:col-span-4">
             Wherever your business is based, the work is done by the same team, in your systems and on your calendar.
           </p>
         </div>

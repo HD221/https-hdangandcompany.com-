@@ -54,6 +54,16 @@ export function SplitText({
   const reduce = useReducedMotion()
   const words = text.split(' ')
   const plain = text.replace(/\*/g, '')
+  // A *highlighted phrase* can span several words: mark every word from the opening * to the closing *.
+  let inside = false
+  const accents = words.map((w) => {
+    const opens = w.startsWith('*')
+    const closes = w.endsWith('*') && (w.length > 1 || inside)
+    const on = inside || opens
+    if (opens) inside = true
+    if (closes) inside = false
+    return on
+  })
   const variants = {
     hidden: { y: '110%' },
     show: (i: number) => ({ y: '0%', transition: { duration: reduce ? 0 : 0.8, ease, delay: reduce ? 0 : delay + i * 0.06 } }),
@@ -64,7 +74,7 @@ export function SplitText({
     as,
     { className, 'aria-label': plain, id },
     words.map((w, i) => {
-      const accent = w.startsWith('*')
+      const accent = accents[i]
       const word = w.replace(/\*/g, '')
       return (
         <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.12em] -mb-[0.12em] align-top">
