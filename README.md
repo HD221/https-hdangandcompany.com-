@@ -21,6 +21,18 @@ node scripts/serve.mjs   # serve dist/ with clean URLs on :4173
 - **Vercel:** connect the repo, framework "Vite", output `dist`. `vercel.json` turns on clean URLs.
   The contact form needs a form service on Vercel; WhatsApp, phone and email links work everywhere.
 
+## Contact form email (Vercel)
+
+`api/form.js` is a Vercel function that sends the enquiry and subscribe forms through
+Google Workspace SMTP. Set these in Vercel → Project → Settings → Environment Variables,
+then redeploy:
+
+| Name | Value |
+|---|---|
+| `SMTP_USER` | The Google Workspace mailbox that sends, e.g. `info@hdangandcompany.com` |
+| `SMTP_PASS` | A Google App Password for that mailbox (never commit it) |
+| `FORM_TO` | Optional. Where enquiries go (default `info@hdangandcompany.com`) |
+
 ## Deploy on Hostinger (shared hosting)
 
 1. `npm run build`, then zip the **contents** of `dist/` (not the folder itself).

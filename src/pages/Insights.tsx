@@ -31,7 +31,7 @@ function Subscribe() {
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     try {
-      const res = await fetch(import.meta.env.VITE_FORM_ENDPOINT ?? '/form.php', {
+      const res = await fetch(import.meta.env.VITE_FORM_ENDPOINT ?? '/api/form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(new FormData(e.currentTarget) as unknown as Record<string, string>).toString(),
