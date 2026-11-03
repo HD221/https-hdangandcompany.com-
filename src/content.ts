@@ -89,10 +89,10 @@ export const services: Service[] = [
     number: '02',
     name: 'Financial Planning and Analysis',
     menuName: 'FP&A',
-    short: 'A dedicated three-member FP&A team that turns your actuals into budgets, forecasts and decisions.',
+    short: 'A dedicated FP&A team that turns your actual numbers into clear budgets, forecasts and decisions.',
     bullets: ['Annual budgets', 'Rolling forecasts', 'Budget vs actual', 'KPI dashboards', 'Scenario models', 'Investor packs'],
     intro:
-      'A dedicated three-member FP&A team that turns your actuals into budgets, forecasts and decisions, working in your tools on a fixed calendar.',
+      'Our dedicated FP&A analysts turn your actual numbers into clear budgets, forecasts and decisions, working inside your own tools on a fixed monthly calendar.',
     features: [
       { title: 'Budgets and operating plans', text: 'Built bottom-up with department owners.' },
       { title: 'Rolling forecasts', text: '12-month P&L, balance sheet and cash, updated monthly.' },
@@ -111,7 +111,7 @@ export const services: Service[] = [
       },
     ],
     metaDescription:
-      'FP&A from H Dang and Company: budgets, rolling forecasts, budget vs actual, KPI dashboards and scenario models from a dedicated three-member team.',
+      'FP&A from H Dang and Company: budgets, rolling forecasts, budget vs actual, KPI dashboards and scenario models from a dedicated FP&A team.',
   },
   {
     slug: 'virtual-bookkeeping',
