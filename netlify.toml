@@ -2,6 +2,11 @@
   command = "npm run build"
   publish = "dist"
 
+# On Netlify, forms are handled by Netlify Forms (posted to "/").
+[build.environment]
+  VITE_FORM_ENDPOINT = "/"
+  NODE_VERSION = "22"
+
 [[headers]]
   for = "/assets/*"
   [headers.values]
@@ -11,3 +16,9 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+
+[[redirects]]
+  from = "https://www.hdangandcompany.com/*"
+  to = "https://hdangandcompany.com/:splat"
+  status = 301
+  force = true
