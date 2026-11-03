@@ -12,7 +12,7 @@ const register = [
   { label: 'ICAI Firm Registration No.', value: firm.frn, strong: true },
   { label: 'Proprietor', value: firm.proprietor },
   { label: 'ICAI Membership No.', value: firm.membership, strong: true },
-  { label: 'Clients served in', value: 'India, the US and Canada' },
+  { label: 'Clients served', value: 'Owner-managed and venture-backed businesses across multiple countries' },
   { label: 'Office', value: firm.address.join(', ') },
   { label: 'Working hours', value: firm.hours },
 ]
