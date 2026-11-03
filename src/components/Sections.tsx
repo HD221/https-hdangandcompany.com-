@@ -4,11 +4,9 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTra
 import {
   articles,
   calendar,
-  clients,
   coreServices,
   engagementModels,
   firm,
-  founder,
   fundraisingGrid,
   hoursTable,
   howWeWork,
@@ -17,10 +15,9 @@ import {
   otherServices,
   platforms,
   services,
-  team,
   type QA,
 } from '../content'
-import { Magnetic, Picture, Reveal, SplitText, ease } from './Motion'
+import { Magnetic, Reveal, SplitText, ease } from './Motion'
 
 /* ---------- small building blocks ---------- */
 
@@ -516,78 +513,81 @@ export function HowWeWorkSection() {
   )
 }
 
-/* ---------- people and clients ---------- */
+/* ---------- how we handle your work ---------- */
 
-function TeamBars() {
-  const max = Math.max(...team.map((t) => t.count))
+const standards = [
+  {
+    title: 'Reviewed by a Chartered Accountant',
+    text: 'Every deliverable is reviewed by a Chartered Accountant before it reaches you.',
+    path: 'M8 4 h22 l8 8 v32 h-30 z M30 4 v8 h8 M14 28 l6 6 l12 -12',
+  },
+  {
+    title: 'No banking passwords',
+    text: "Role-based logins to your software and read-only bank feeds; we don't ask for banking passwords.",
+    path: 'M12 22 v-6 a12 12 0 0 1 24 0 v6 M8 22 h32 v22 h-32 z M24 30 v6',
+  },
+  {
+    title: 'ICAI Code of Ethics',
+    text: 'Client information is handled under the ICAI Code of Ethics and an NDA where required.',
+    path: 'M24 4 l18 6 v12 c0 12 -8 20 -18 24 c-10 -4 -18 -12 -18 -24 v-12 z M16 24 l6 6 l10 -12',
+  },
+  {
+    title: 'Written scope, fixed calendar',
+    text: 'Each engagement runs on a written scope and a fixed monthly calendar, set out in the engagement letter.',
+    path: 'M6 10 h36 v34 h-36 z M6 18 h36 M14 4 v10 M34 4 v10 M14 26 h6 M28 26 h6 M14 34 h6',
+  },
+  {
+    title: 'Inside your systems',
+    text: 'We work inside your own accounting system, so your books and records stay with you.',
+    path: 'M4 8 h40 v26 h-40 z M18 42 h12 M24 34 v8 M12 26 l8 -8 l6 5 l10 -10',
+  },
+  {
+    title: 'A package for your CPA',
+    text: 'For US and Canadian books, we hand a year-end package to your CPA or tax preparer, who handles the filing.',
+    path: 'M6 16 l18 -10 l18 10 v22 l-18 10 l-18 -10 z M6 16 l18 10 l18 -10 M24 26 v22',
+  },
+]
+
+export function StandardsSection({ heading = true }: { heading?: boolean }) {
   const reduce = useReducedMotion()
   return (
-    <ul className="mt-6 space-y-4">
-      {team.map((t, i) => (
-        <li key={t.role}>
-          <div className="flex items-baseline justify-between gap-4 text-[0.95rem]">
-            <span>{t.role}</span>
-            <span className="font-semibold tabular-nums">{t.count}</span>
-          </div>
-          <div className="mt-1.5 h-1.5 bg-green/10" aria-hidden="true">
-            <motion.div
-              className="h-full bg-green"
-              initial={{ width: reduce ? `${(t.count / max) * 100}%` : 0 }}
-              whileInView={{ width: `${(t.count / max) * 100}%` }}
-              viewport={{ once: true }}
-              transition={{ duration: reduce ? 0 : 0.8, ease, delay: reduce ? 0 : i * 0.1 }}
-            />
-          </div>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-export function PeopleAndClients({ heading = true }: { heading?: boolean }) {
-  return (
-    <section aria-labelledby={heading ? 'people' : undefined} aria-label={heading ? undefined : 'People and clients'} className="bg-green/[0.06]">
+    <section aria-labelledby="standards" className="bg-green/[0.06]">
       <div className="wrap py-20 md:py-28">
-        {heading && (
-          <>
-            <Eyebrow>The firm</Eyebrow>
-            <SplitText id="people" text="People and *clients*" className="display mt-4 text-4xl md:text-6xl" />
-          </>
-        )}
-        <div className={`grid gap-4 md:grid-cols-3 ${heading ? 'mt-12' : ''}`}>
-          <Reveal>
-            <div className="h-full bg-white p-7">
-              <Picture img={founder.image} widths={[486]} sizes="160px" className="h-40 w-auto object-cover" />
-              <h3 className="display mt-5 text-3xl">{founder.name}</h3>
-              <p className="text-[0.95rem] text-muted">{founder.role}</p>
-              <ul className="mt-5 space-y-1 border-t border-rule pt-4 text-[0.9rem] text-muted">
-                {founder.details.map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="h-full bg-white p-7">
-              <h3 className="display text-3xl">Team of 10</h3>
-              <TeamBars />
-            </div>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="h-full bg-white p-7">
-              <h3 className="display text-3xl">Clients include</h3>
-              <p className="mt-1 text-[0.8rem] text-muted">Listed with each client's written permission</p>
-              <ul className="mt-5 divide-y divide-rule">
-                {clients.map((c) => (
-                  <li key={c.name} className="py-3.5 first:pt-0">
-                    <p className="font-semibold">{c.name}</p>
-                    <p className="text-[0.9rem] text-muted">{c.work}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+        <div className="grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <Eyebrow>{heading ? 'The firm' : 'Our standards'}</Eyebrow>
+            <SplitText id="standards" text="How we handle *your work*" className="display mt-4 text-4xl md:text-6xl" />
+          </div>
+          <p className="text-muted md:col-span-5">
+            The same rules apply to every engagement, whether we keep your books, plan your numbers or prepare you for a raise.
+          </p>
         </div>
+        <ul className="mt-12 grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-3">
+          {standards.map((st, i) => (
+            <Reveal as="li" key={st.title} delay={(i % 3) * 0.08} className="group relative overflow-hidden bg-paper p-7 md:p-9">
+              <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-green transition-transform duration-500 group-hover:scale-x-100" aria-hidden="true" />
+              <div className="flex items-start justify-between gap-4">
+                <svg viewBox="0 0 48 48" className="h-12 w-12 text-green" aria-hidden="true">
+                  <motion.path
+                    d={st.path}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={reduce ? false : { pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: reduce ? 0 : 1.2, ease, delay: reduce ? 0 : 0.2 + (i % 3) * 0.12 }}
+                  />
+                </svg>
+                <span className="display text-xl text-green/40">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 className="display mt-6 text-2xl md:text-3xl">{st.title}</h3>
+              <p className="mt-2 text-[0.95rem] text-muted">{st.text}</p>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   )

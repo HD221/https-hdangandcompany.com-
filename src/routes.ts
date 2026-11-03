@@ -31,7 +31,7 @@ export const pages: Meta[] = [
   {
     path: '/the-firm',
     title: 'The firm' + suffix,
-    description: 'CA Hritik Dang, Proprietor (ICAI M. No. 615134), a team of ten, and clients listed with their written permission. FRN 158649W.',
+    description: 'H Dang and Company, Chartered Accountants: ICAI FRN 158649W, proprietor CA Hritik Dang (ICAI M. No. 615134), established 2022, a team of ten.',
   },
   {
     path: '/insights',

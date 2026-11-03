@@ -17,7 +17,7 @@ import {
   MonthlyCalendar,
   Moments,
   OtherServiceCards,
-  PeopleAndClients,
+  StandardsSection,
 } from '../components/Sections'
 
 function Hero() {
@@ -67,7 +67,7 @@ export default function Home() {
       <EngagementModels />
       <IndustriesGrid />
       <HowWeWorkSection />
-      <PeopleAndClients />
+      <StandardsSection />
       <InsightsTeaser />
       <FaqSection items={faqs} />
       <EnquirySection />

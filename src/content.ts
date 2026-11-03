@@ -322,27 +322,6 @@ export const hoursTable = [
 
 export const platforms = ['QuickBooks Online', 'Xero', 'Zoho Books', 'Tally', 'MYOB', 'Sage 50', 'Yardi Breeze', 'AppFolio', 'Fathom', 'Monday.com']
 
-export const founder = {
-  name: 'CA Hritik Dang',
-  role: 'Proprietor · B.Com, ACA',
-  details: ['ICAI M. No. 615134', 'ACA since July 2022', 'Certificate of Practice since December 2022', 'English, Hindi'],
-  image: { src: '/images/hritik-dang-portrait', alt: 'CA Hritik Dang, Proprietor of H Dang and Company', w: 486, h: 514 },
-}
-
-export const team = [
-  { role: 'FP&A analysts', count: 3 },
-  { role: 'Senior accountants', count: 2 },
-  { role: 'Junior accountants', count: 3 },
-  { role: 'Human resources', count: 1 },
-  { role: 'Office and administration', count: 1 },
-]
-
-export const clients = [
-  { name: 'Maadho Distributors Inc., New York', work: 'Accounting, payroll and financial reporting' },
-  { name: 'Lalani Ventures', work: 'Property accounting and lease administration' },
-  { name: 'De Bonte Koe', work: 'FP&A' },
-]
-
 export const faqs: QA[] = [
   {
     q: 'Can a firm in India work on our US or Canadian books?',
