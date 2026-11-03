@@ -214,7 +214,7 @@ function Footer() {
     { to: '/terms-of-use', label: 'Terms of Use' },
   ]
   return (
-    <footer className="bg-ink text-paper/85">
+    <footer className="border-t-4 border-lime bg-green-ink text-paper/90">
       <div className="wrap grid gap-10 py-14 md:grid-cols-12">
         <div className="md:col-span-5">
           <Logo tone="paper" className="h-auto w-full max-w-[24rem] opacity-90" />
@@ -243,7 +243,7 @@ function Footer() {
           ))}
         </ul>
       </div>
-      <div className="wrap border-t border-paper/15 py-6 text-[0.82rem] text-paper/75">{firm.icaiNote}</div>
+      <div className="wrap border-t border-paper/15 py-6 text-[0.82rem] text-paper/80">{firm.icaiNote}</div>
     </footer>
   )
 }
