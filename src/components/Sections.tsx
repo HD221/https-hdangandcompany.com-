@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import {
   articles,
   calendar,
@@ -327,7 +327,7 @@ export function Moments() {
   )
 }
 
-/* ---------- monthly calendar with a progress line ---------- */
+/* ---------- monthly calendar ---------- */
 
 export function MonthlyCalendar() {
   const ref = useRef<HTMLDivElement>(null)
@@ -335,7 +335,6 @@ export function MonthlyCalendar() {
   const n = calendar.length
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'end 0.45'] })
   const smooth = useSpring(scrollYProgress, { stiffness: 110, damping: 28 })
-  const w = useTransform(smooth, [0, 1], ['0%', '100%'])
   const [step, setStep] = useState(reduce ? n - 1 : -1)
   useMotionValueEvent(smooth, 'change', (v) => {
     if (reduce) return
@@ -354,10 +353,8 @@ export function MonthlyCalendar() {
       </div>
 
       <div ref={ref} className="relative mt-14">
-        {/* simple progress line (desktop) */}
-        <div className="relative hidden h-[2px] bg-rule md:block" aria-hidden="true">
-          <motion.div className="absolute inset-y-0 left-0 bg-green" style={{ width: reduce ? '100%' : w }} />
-        </div>
+        {/* single solid line (desktop) */}
+        <div className="hidden h-[2px] bg-green-ink md:block" aria-hidden="true" />
 
         <ol className="grid gap-4 pt-6 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
           {calendar.map((c, i) => {
