@@ -123,7 +123,7 @@ export function WorldMapGraphic() {
 }
 
 const points = [
-  { title: 'One team in Vadodara', text: 'A Chartered Accountant-led finance team, working from our office in Vadodara.' },
+  { title: 'Reviewed by a Chartered Accountant', text: 'Every deliverable is checked by a Chartered Accountant before it reaches you, wherever you are.' },
   { title: 'Your systems, your calendar', text: 'We work inside your accounting system, on a fixed monthly calendar.' },
   { title: 'Secure remote access', text: "Role-based logins and read-only bank feeds; we don't ask for banking passwords." },
 ]
