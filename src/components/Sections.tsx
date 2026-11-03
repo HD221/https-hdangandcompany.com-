@@ -506,18 +506,14 @@ export function HoursTable() {
   return (
     <div>
       <div className="relative overflow-x-auto">
-        <table className="w-full min-w-[34rem] text-left text-[0.95rem]">
-          <caption className="sr-only">Working hours, Monday to Friday, in each time zone: opening time to closing time</caption>
+        <table className="w-full min-w-[22rem] text-left text-[0.95rem]">
+          <caption className="sr-only">Working hours, Monday to Friday, in each time zone. Fixed all year.</caption>
           <thead>
             <tr className="border-b-2 border-green-ink">
               <th scope="col" className="py-3 pr-4 font-semibold">Time zone</th>
-              <th scope="col" className="py-3 pr-4 font-semibold">
-                Winter
-                <span className="block text-[0.78rem] font-normal text-muted">Standard time</span>
-              </th>
               <th scope="col" className="py-3 font-semibold">
-                Summer
-                <span className="block text-[0.78rem] font-normal text-muted">Daylight saving time</span>
+                Open → Close
+                <span className="block text-[0.78rem] font-normal text-muted">Fixed all year</span>
               </th>
             </tr>
           </thead>
@@ -526,13 +522,10 @@ export function HoursTable() {
               <tr key={r.region} className={`border-b border-rule ${i === 0 ? 'bg-green/[0.06]' : ''}`}>
                 <th scope="row" className="py-3.5 pr-4 text-left font-normal">
                   <span className="block font-semibold">{r.region}</span>
-                  {r.note && <span className="block text-[0.8rem] text-muted">{r.note}</span>}
+                  <span className="block text-[0.8rem] text-muted">{r.note}</span>
                 </th>
-                <td className="py-3.5 pr-4 tabular-nums">
-                  <SlotCell slot={r.standard} />
-                </td>
                 <td className="py-3.5 tabular-nums">
-                  <SlotCell slot={r.daylight} />
+                  <SlotCell slot={r.hours} />
                 </td>
               </tr>
             ))}
@@ -540,7 +533,7 @@ export function HoursTable() {
         </table>
       </div>
       <p className="mt-3 text-[0.82rem] text-muted">
-        Monday to Friday, opening time → closing time. <span className="text-green">*</span> Starts the previous evening, local time.
+        Monday to Friday. These hours apply all year, in winter and in summer. <span className="text-green">*</span> Starts the previous evening, local time.
       </p>
     </div>
   )
