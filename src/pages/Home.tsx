@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { faqs } from '../content'
 import { SplitText } from '../components/Motion'
 import ServiceExplorer from '../components/ServiceExplorer'
+import WorldReach from '../components/WorldMap'
 import {
   Button,
   EngagementModels,
@@ -65,6 +66,7 @@ export default function Home() {
       <MonthlyCalendar />
       <FundraisingFeature />
       <EngagementModels />
+      <WorldReach />
       <IndustriesGrid />
       <HowWeWorkSection />
       <StandardsSection />

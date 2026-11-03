@@ -71,7 +71,7 @@ export default function ServiceExplorer() {
                     aria-hidden="true"
                   />
                 )}
-                <span className={`display text-2xl transition-colors ${on ? 'text-green' : 'text-green/50'}`}>{sv.number}</span>
+                <span className={`display text-2xl transition-colors ${on ? 'text-green' : 'text-muted'}`}>{sv.number}</span>
                 <span>
                   <span className={`display block text-3xl transition-transform duration-500 md:text-4xl ${on ? 'translate-x-1' : 'group-hover:translate-x-1'}`}>{sv.name}</span>
                   <span className={`mt-1 block text-[0.95rem] text-muted ${on ? '' : 'lg:hidden'}`}>{sv.short}</span>
@@ -143,7 +143,7 @@ export default function ServiceExplorer() {
                   onClick={() => setActive(on ? -1 : i)}
                   className="grid w-full grid-cols-[2.5rem_1fr_2rem] items-baseline gap-2 py-5 text-left"
                 >
-                  <span className={`display text-xl ${on ? 'text-green' : 'text-green/50'}`}>{sv.number}</span>
+                  <span className={`display text-xl ${on ? 'text-green' : 'text-muted'}`}>{sv.number}</span>
                   <span className="display text-3xl">{sv.name}</span>
                   <motion.span className="text-2xl text-green" animate={{ rotate: on ? 45 : 0 }} transition={{ duration: reduce ? 0 : 0.25 }} aria-hidden="true">
                     +
