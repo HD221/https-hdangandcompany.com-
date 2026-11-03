@@ -10,7 +10,7 @@ export default function Services() {
       <PageHero
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Services' }]}
         title="*Services*"
-        intro="Four core services that together work as your outsourced finance function, two specialist services for growth and investment decisions, and the tax, audit and compliance work a Chartered Accountant firm provides in India."
+        intro="Four core services that together work as your outsourced finance function, two specialist services for growth and investment decisions, and the tax, audit and compliance work a Chartered Accountant firm provides."
       />
       <section aria-labelledby="core" className="wrap py-20 md:py-28">
         <Eyebrow>Core services</Eyebrow>

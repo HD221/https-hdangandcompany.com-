@@ -611,7 +611,7 @@ const standards = [
   },
   {
     title: 'A package for your CPA',
-    text: 'For US and Canadian books, we hand a year-end package to your CPA or tax preparer, who handles the filing.',
+    text: 'For clients abroad, we hand a year-end package to your CPA or tax preparer, who handles the filing.',
     path: 'M6 16 l18 -10 l18 10 v22 l-18 10 l-18 -10 z M6 16 l18 10 l18 -10 M24 26 v22',
   },
 ]
@@ -778,8 +778,6 @@ export function FaqSection({ items }: { items: QA[] }) {
 
 /* ---------- enquiry form ---------- */
 
-const countries = ['India', 'United States', 'Canada', 'Other']
-
 function Field({ label, name, type = 'text', required, autoComplete }: { label: string; name: string; type?: string; required?: boolean; autoComplete?: string }) {
   return (
     <label className="block">
@@ -832,14 +830,7 @@ export function EnquiryForm() {
       <Field label="Name" name="name" required autoComplete="name" />
       <Field label="Business name" name="business" autoComplete="organization" />
       <Field label="Email" name="email" type="email" required autoComplete="email" />
-      <label className="block">
-        <span className="text-[0.88rem] font-medium">Country</span>
-        <select name="country" className="mt-1.5 block w-full border border-ink/20 bg-white px-3 py-2.5 focus:border-green focus:outline-none">
-          {countries.map((c) => (
-            <option key={c}>{c}</option>
-          ))}
-        </select>
-      </label>
+      <Field label="Country" name="country" autoComplete="country-name" />
       <label className="block sm:col-span-2">
         <span className="text-[0.88rem] font-medium">Service required</span>
         <select name="service" className="mt-1.5 block w-full border border-ink/20 bg-white px-3 py-2.5 focus:border-green focus:outline-none">

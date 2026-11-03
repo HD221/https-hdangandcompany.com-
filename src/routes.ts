@@ -15,7 +15,7 @@ export const pages: Meta[] = [
     path: '/services',
     title: 'Services' + suffix,
     description:
-      'Four core services that work as your outsourced finance function, two specialist services, and tax, audit and compliance in India.',
+      'Four core services that work as your outsourced finance function, two specialist services, and tax, audit and compliance.',
   },
   ...services.map((s) => ({ path: `/services/${s.slug}`, title: s.name + suffix, description: s.metaDescription })),
   {

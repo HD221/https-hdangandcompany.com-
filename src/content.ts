@@ -119,10 +119,10 @@ export const services: Service[] = [
     number: '03',
     name: 'Virtual Bookkeeping',
     menuName: 'Virtual Bookkeeping',
-    short: 'Accurate weekly or monthly books for businesses in the US, Canada and India, kept in your own accounting system.',
+    short: 'Accurate weekly or monthly books for businesses worldwide, kept in your own accounting system.',
     bullets: ['Reconciliations', 'Payables and receivables', 'Month-end close', 'Multi-currency', 'Catch-up and clean-up', 'CPA year-end package'],
     intro:
-      'Accurate weekly or monthly books for businesses in the US, Canada and India, kept in your own accounting system and reviewed by a Chartered Accountant.',
+      'Accurate weekly or monthly books for businesses worldwide, kept in your own accounting system and reviewed by a Chartered Accountant.',
     features: [
       { title: 'Transaction recording', text: 'Sales, purchases, expenses and payroll journals.' },
       { title: 'Reconciliations', text: 'Bank, card, payment-gateway and marketplace settlements.' },
@@ -135,12 +135,12 @@ export const services: Service[] = [
     receive: 'Balance sheet, P&L, cash-flow summary, reconciliation reports and a short note on open items.',
     faq: [
       {
-        q: 'Do you file US or Canadian taxes?',
+        q: 'Do you file overseas tax returns?',
         a: 'No. We maintain the books and hand a year-end package to your CPA or tax preparer, who handles the filing.',
       },
     ],
     metaDescription:
-      'Virtual bookkeeping for businesses in the US, Canada and India: reconciliations, payables and receivables, month-end close and CPA year-end packages.',
+      'Virtual bookkeeping for businesses worldwide: reconciliations, payables and receivables, month-end close and CPA year-end packages.',
   },
   {
     slug: 'fundraising-readiness',
@@ -228,7 +228,7 @@ export const services: Service[] = [
     menuName: 'Tax, Audit and Compliance',
     short: 'Audit and assurance, GST, income tax and TDS, cross-border receipts, business setup.',
     bullets: [],
-    intro: 'The statutory work of a Chartered Accountant firm in India, for businesses and individuals.',
+    intro: 'The statutory work of a Chartered Accountant firm, for businesses and individuals.',
     features: [
       { title: 'Audit and assurance', text: 'Statutory audit, tax audit, internal audit and stock audit.' },
       { title: 'GST', text: 'Registration, returns, ITC reconciliation, refunds and notices.' },
@@ -237,7 +237,7 @@ export const services: Service[] = [
       { title: 'Business setup', text: 'Entity choice, registrations and accounting systems.' },
       { title: 'Notices and assessments', text: 'Responses to GST and income tax notices and queries.' },
     ],
-    metaDescription: 'Tax, audit and compliance in India: audit and assurance, GST, income tax and TDS, cross-border receipts, business setup and notices.',
+    metaDescription: 'Tax, audit and compliance: audit and assurance, GST, income tax and TDS, cross-border receipts, business setup and notices.',
   },
 ]
 
@@ -314,17 +314,17 @@ export const howWeWork = [
 ]
 
 export const hoursTable = [
-  { region: 'India (IST)', standard: '10:00 AM – 2:30 AM', daylight: '—' },
-  { region: 'US and Canada, Eastern', standard: 'until 4:00 PM', daylight: 'until 5:00 PM' },
-  { region: 'US and Canada, Pacific', standard: 'until 1:00 PM', daylight: 'until 2:00 PM' },
+  { region: 'IST, our office', standard: '10:00 AM – 2:30 AM', daylight: '—' },
+  { region: 'Eastern Time', standard: 'until 4:00 PM', daylight: 'until 5:00 PM' },
+  { region: 'Pacific Time', standard: 'until 1:00 PM', daylight: 'until 2:00 PM' },
 ]
 
 export const platforms = ['QuickBooks Online', 'Xero', 'Zoho Books', 'Tally', 'MYOB', 'Sage 50', 'Yardi Breeze', 'AppFolio', 'Fathom', 'Monday.com']
 
 export const faqs: QA[] = [
   {
-    q: 'Can a firm in India work on our US or Canadian books?',
-    a: 'Yes. We work inside your accounting system and hand a year-end package to your CPA or tax preparer, who handles US or Canadian tax filing.',
+    q: 'Can you work on our books if our business is overseas?',
+    a: 'Yes. We work inside your accounting system and hand a year-end package to your CPA or tax preparer, who handles the local tax filing.',
   },
   {
     q: 'How is our data kept secure?',
@@ -488,7 +488,7 @@ export const articles: Article[] = [
     slug: 'lut-for-export-of-services',
     category: 'Tax and compliance',
     title: 'LUT for export of services: who needs it and how to file it',
-    summary: 'When Indian exporters of services should file a Letter of Undertaking, the filing steps, and what happens without one.',
+    summary: 'When exporters of services should file a Letter of Undertaking, the filing steps, and what happens without one.',
     minutes: 4,
   },
   {
