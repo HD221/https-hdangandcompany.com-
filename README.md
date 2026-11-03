@@ -21,6 +21,17 @@ node scripts/serve.mjs   # serve dist/ with clean URLs on :4173
 - **Vercel:** connect the repo, framework "Vite", output `dist`. `vercel.json` turns on clean URLs.
   The contact form needs a form service on Vercel; WhatsApp, phone and email links work everywhere.
 
+## Deploy on Hostinger (shared hosting)
+
+1. `npm run build`, then zip the **contents** of `dist/` (not the folder itself).
+2. hPanel → Websites → Manage → Files → File Manager → open `public_html`.
+3. Back up and remove the old site files, upload the zip, and choose Extract.
+4. Check that `.htaccess`, `index.html` and `form.php` sit directly in `public_html`.
+
+`public/.htaccess` handles HTTPS, clean URLs, redirects from old addresses, the 404 page,
+compression and caching. `public/form.php` emails the enquiry and subscribe forms to
+info@hdangandcompany.com using PHP `mail()`.
+
 ## Editing content
 
 All text lives in `src/content.ts` (firm facts, services, industries, team, clients, FAQs, articles) and

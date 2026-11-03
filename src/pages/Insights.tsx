@@ -31,7 +31,7 @@ function Subscribe() {
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     try {
-      const res = await fetch('/', {
+      const res = await fetch('/form.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(new FormData(e.currentTarget) as unknown as Record<string, string>).toString(),

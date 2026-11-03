@@ -1,0 +1,63 @@
+# H Dang and Company website: Apache settings for Hostinger.
+
+Options -MultiViews -Indexes
+DirectorySlash Off
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Always use HTTPS and the bare domain (no www)
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301,NE]
+
+  # Addresses from the previous website
+  RewriteRule ^about/?$ /the-firm [L,R=301]
+  RewriteRule ^services/startup-advisory/?$ /services/fundraising-readiness [L,R=301]
+  RewriteRule ^services/financial-advisory-and-virtual-cfo/?$ /services/virtual-cfo [L,R=301]
+  RewriteRule ^services/(rpa-and-data-analytics|cryptocurrency-and-blockchain)/?$ /services [L,R=301]
+  RewriteRule ^startup-advisory/?$ /services/fundraising-readiness [L,R=301]
+  RewriteRule ^financial-advisory-and-virtual-cfo/?$ /services/virtual-cfo [L,R=301]
+  RewriteRule ^virtual-bookkeeping/?$ /services/virtual-bookkeeping [L,R=301]
+  RewriteRule ^(rpa-and-data-analytics|cryptocurrency-and-blockchain)/?$ /services [L,R=301]
+  RewriteRule ^insights/?$ /blogs [L,R=301]
+  RewriteRule ^insights/(.+?)/?$ /blogs/$1 [L,R=301]
+  RewriteRule ^(wp-admin|wp-login\.php|wp-content|feed|comments)(/.*)?$ / [L,R=301]
+
+  # Remove a trailing slash (except on the home page)
+  RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+  # Clean addresses: /the-firm serves the-firm.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml application/xml text/plain
+</IfModule>
+
+# Caching: built assets have unique names, so they can be cached for a year
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|webp|avif|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+</IfModule>
