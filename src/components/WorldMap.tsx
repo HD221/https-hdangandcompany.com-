@@ -12,10 +12,21 @@ const home = { x: px(73.18), y: py(22.31) } // Vadodara
 const reach = [
   [-74, 40.7],
   [-118.2, 34],
+  [-79.4, 43.7],
+  [-123.1, 49.3],
+  [-87.6, 41.9],
+  [-46.6, -23.5],
   [-0.1, 51.5],
+  [13.4, 52.5],
+  [18.1, 59.3],
+  [28, -26.2],
+  [36.8, -1.3],
   [55.3, 25.2],
+  [114.2, 22.3],
+  [139.7, 35.7],
   [103.8, 1.35],
   [151.2, -33.9],
+  [174.8, -36.8],
 ].map(([lng, lat]) => ({ x: px(lng), y: py(lat) }))
 
 function arc(to: { x: number; y: number }) {
@@ -66,7 +77,7 @@ export function WorldMapGraphic() {
               strokeDasharray="1 0"
               variants={{
                 hidden: { pathLength: 0, opacity: 0 },
-                show: { pathLength: 1, opacity: 0.85, transition: { duration: reduce ? 0 : 1.2, ease, delay: reduce ? 0 : 1 + i * 0.18 } },
+                show: { pathLength: 1, opacity: 0.85, transition: { duration: reduce ? 0 : 1.2, ease, delay: reduce ? 0 : 1 + i * 0.09 } },
               }}
             />
             <motion.circle
@@ -74,13 +85,13 @@ export function WorldMapGraphic() {
               cy={t.y}
               r={3}
               fill="#c3f18a"
-              variants={{ hidden: { scale: 0 }, show: { scale: 1, transition: { delay: reduce ? 0 : 2 + i * 0.18, type: 'spring', stiffness: 260, damping: 14 } } }}
+              variants={{ hidden: { scale: 0 }, show: { scale: 1, transition: { delay: reduce ? 0 : 2 + i * 0.09, type: 'spring', stiffness: 260, damping: 14 } } }}
               style={{ transformOrigin: `${t.x}px ${t.y}px` }}
             />
             {!reduce && (
               <circle r={2.2} fill="#f7f5f1">
-                <animateMotion dur={`${3.2 + (i % 3) * 0.6}s`} begin={`${2.4 + i * 0.4}s`} repeatCount="indefinite" path={d} />
-                <animate attributeName="opacity" values="0;1;1;0" dur={`${3.2 + (i % 3) * 0.6}s`} begin={`${2.4 + i * 0.4}s`} repeatCount="indefinite" />
+                <animateMotion dur={`${3.2 + (i % 3) * 0.6}s`} begin={`${2.4 + (i % 8) * 0.35}s`} repeatCount="indefinite" path={d} />
+                <animate attributeName="opacity" values="0;1;1;0" dur={`${3.2 + (i % 3) * 0.6}s`} begin={`${2.4 + (i % 8) * 0.35}s`} repeatCount="indefinite" />
               </circle>
             )}
           </g>
