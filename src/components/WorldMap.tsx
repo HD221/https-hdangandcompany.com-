@@ -44,7 +44,7 @@ export function WorldMapGraphic() {
     <motion.svg
       viewBox={`0 0 ${WORLD_W} ${WORLD_H}`}
       role="img"
-      aria-label="Dotted world map with a pin on our Vadodara headquarters and arcs reaching out across the world"
+      aria-label="Dotted world map with a pin on India and arcs reaching out across the world"
       className="block h-auto w-full"
       initial={reduce ? false : 'hidden'}
       whileInView="show"
@@ -113,9 +113,9 @@ export function WorldMapGraphic() {
       )}
       <circle cx={home.x} cy={home.y} r={6} fill="#c3f18a" stroke="#1b4239" strokeWidth={2} />
       <g transform={`translate(${home.x + 10} ${home.y + 22})`}>
-        <rect x={0} y={-13} width={68} height={19} fill="#f7f5f1" />
+        <rect x={0} y={-13} width={46} height={19} fill="#f7f5f1" />
         <text x={8} y={1} fontSize={11} fontWeight={700} fill="#1b4239">
-          Vadodara
+          India
         </text>
       </g>
     </motion.svg>
