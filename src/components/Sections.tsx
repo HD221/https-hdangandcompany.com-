@@ -354,30 +354,9 @@ export function MonthlyCalendar() {
       </div>
 
       <div ref={ref} className="relative mt-14">
-        {/* track with travelling marker (desktop) */}
-        <div className="relative hidden h-8 md:block" aria-hidden="true">
-          <div className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 bg-rule" />
-          <motion.div className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-green" style={{ width: reduce ? '100%' : w }} />
-          {calendar.map((c, i) => {
-            const lit = i <= step
-            return (
-              <span
-                key={c.title}
-                className={`absolute top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border-2 font-serif text-[0.8rem] transition-all duration-500 ${
-                  lit ? 'scale-110 border-green bg-green text-paper' : 'border-rule bg-paper text-muted'
-                }`}
-                style={{ left: `calc(${(i / n) * 100}% )` }}
-              >
-                {i + 1}
-              </span>
-            )
-          })}
-          {!reduce && (
-            <motion.span className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: w }}>
-              <span className="absolute -inset-3 animate-ping rounded-full bg-lime/50" />
-              <span className="relative block h-3.5 w-3.5 rounded-full border-2 border-green-ink bg-lime" />
-            </motion.span>
-          )}
+        {/* simple progress line (desktop) */}
+        <div className="relative hidden h-[2px] bg-rule md:block" aria-hidden="true">
+          <motion.div className="absolute inset-y-0 left-0 bg-green" style={{ width: reduce ? '100%' : w }} />
         </div>
 
         <ol className="grid gap-4 pt-6 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
