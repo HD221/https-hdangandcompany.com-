@@ -17,7 +17,7 @@ import {
   services,
   type QA,
 } from '../content'
-import { Magnetic, Reveal, SplitText, ease } from './Motion'
+import { Magnetic, Marquee, Reveal, SplitText, ease } from './Motion'
 
 /* ---------- small building blocks ---------- */
 
@@ -184,13 +184,24 @@ function istParts(d: Date) {
   return { label: f.format(d), open }
 }
 
+const bandPoints = [
+  'Serving clients worldwide',
+  'Every deliverable reviewed by a Chartered Accountant',
+  'Written scope and a fixed monthly calendar',
+  'We work inside your accounting system',
+  "We don't ask for banking passwords",
+  'Client information handled under the ICAI Code of Ethics',
+  'Response within one working day (IST)',
+  'Year-end package for your CPA',
+]
+
 export function HoursBand() {
   const now = useIST()
   const st = now ? istParts(now) : null
   return (
     <div className="bg-green-ink text-paper">
-      <div className="wrap flex flex-col gap-2 py-5 text-[0.92rem] md:flex-row md:items-center md:justify-between">
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <div className="wrap flex flex-col gap-3 py-4 text-[0.92rem] lg:flex-row lg:items-center lg:gap-8">
+        <p className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1">
           <span className="font-semibold">Working hours: {firm.hours}</span>
           {st && (
             <span className="flex items-center gap-2 text-paper/85">
@@ -202,6 +213,16 @@ export function HoursBand() {
             </span>
           )}
         </p>
+        <span className="hidden h-5 w-px shrink-0 bg-paper/25 lg:block" aria-hidden="true" />
+        <div className="relative min-w-0 flex-1 border-t border-paper/15 pt-3 lg:border-t-0 lg:pt-0">
+          <Marquee
+            items={bandPoints}
+            className="text-paper/90 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]"
+            separator="●"
+            separatorClassName="px-2 text-[0.5em] text-lime"
+            speed={2.4}
+          />
+        </div>
       </div>
     </div>
   )

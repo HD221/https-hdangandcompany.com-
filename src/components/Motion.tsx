@@ -149,7 +149,19 @@ const wrapRange = (min: number, max: number, v: number) => {
 }
 
 /** Endless ticker that speeds up and reverses with your scrolling. */
-export function Marquee({ items, className }: { items: string[]; className?: string }) {
+export function Marquee({
+  items,
+  className,
+  separator = '/',
+  separatorClassName = 'font-sans text-[0.45em] text-lime',
+  speed = 1.6,
+}: {
+  items: string[]
+  className?: string
+  separator?: string
+  separatorClassName?: string
+  speed?: number
+}) {
   const reduce = useReducedMotion()
   const base = useMotionValue(0)
   const { scrollY } = useScroll()
@@ -163,13 +175,13 @@ export function Marquee({ items, className }: { items: string[]; className?: str
     const f = factor.get()
     if (f < 0) dir.current = -1
     else if (f > 0) dir.current = 1
-    base.set(base.get() - dir.current * 1.6 * (delta / 1000) * (1 + Math.abs(f)))
+    base.set(base.get() - dir.current * speed * (delta / 1000) * (1 + Math.abs(f)))
   })
 
   const row = items.map((t, i) => (
     <span key={i} className="flex shrink-0 items-center gap-[0.6em] pr-[0.6em]">
       <span>{t}</span>
-      <span className="font-sans text-[0.45em] text-lime" aria-hidden="true">/</span>
+      <span className={separatorClassName} aria-hidden="true">{separator}</span>
     </span>
   ))
 
