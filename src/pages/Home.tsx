@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { faqs } from '../content'
 import { SplitText } from '../components/Motion'
-import HorizontalServices from '../components/HorizontalServices'
+import ServiceExplorer from '../components/ServiceExplorer'
 import {
   Button,
   EngagementModels,
@@ -57,7 +57,7 @@ export default function Home() {
     <>
       <Hero />
       <HoursBand />
-      <HorizontalServices />
+      <ServiceExplorer />
       <section aria-label="Specialist and other services" className="wrap pb-20 md:pb-28">
         <OtherServiceCards />
       </section>
