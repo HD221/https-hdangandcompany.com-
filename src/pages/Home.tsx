@@ -1,5 +1,4 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { faqs } from '../content'
 import { SplitText } from '../components/Motion'
 import ServiceExplorer from '../components/ServiceExplorer'
 import WorldReach from '../components/WorldMap'
@@ -8,7 +7,6 @@ import {
   EngagementModels,
   EnquirySection,
   FactsRow,
-  FaqSection,
   FinancePackCard,
   FundraisingFeature,
   HoursBand,
@@ -71,7 +69,6 @@ export default function Home() {
       <HowWeWorkSection />
       <StandardsSection />
       <InsightsTeaser />
-      <FaqSection items={faqs} />
       <EnquirySection />
     </>
   )

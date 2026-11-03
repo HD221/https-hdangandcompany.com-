@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { faqs, firm } from '../content'
+import { firm } from '../content'
 import { Parallax, Picture, Reveal, SplitText, ease } from '../components/Motion'
 import WorldReach from '../components/WorldMap'
-import { CtaBand, FactsRow, FaqSection, PageHero, StandardsSection } from '../components/Sections'
+import { CtaBand, FactsRow, PageHero, StandardsSection } from '../components/Sections'
 
 const img = (name: string, alt: string) => ({ src: `/images/${name}`, alt, w: 940, h: 788 })
 
@@ -134,7 +134,6 @@ export default function Firm() {
         </Parallax>
       </div>
 
-      <FaqSection items={faqs} />
       <CtaBand />
     </>
   )
