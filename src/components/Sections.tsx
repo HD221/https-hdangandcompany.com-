@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import {
   articles,
   calendar,
@@ -332,8 +332,15 @@ export function Moments() {
 export function MonthlyCalendar() {
   const ref = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'start 0.35'] })
-  const w = useSpring(useTransform(scrollYProgress, [0, 1], ['0%', '100%']), { stiffness: 120, damping: 30 })
+  const n = calendar.length
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'end 0.45'] })
+  const smooth = useSpring(scrollYProgress, { stiffness: 110, damping: 28 })
+  const w = useTransform(smooth, [0, 1], ['0%', '100%'])
+  const [step, setStep] = useState(reduce ? n - 1 : -1)
+  useMotionValueEvent(smooth, 'change', (v) => {
+    if (reduce) return
+    setStep(v <= 0.02 ? -1 : Math.min(n - 1, Math.floor(v * n * 0.999 + 0.25)))
+  })
   return (
     <section aria-labelledby="calendar" className="wrap py-20 md:py-28">
       <div className="grid gap-6 md:grid-cols-12 md:items-end">
@@ -345,18 +352,59 @@ export function MonthlyCalendar() {
           Exact dates are fixed in your engagement letter. This is the usual rhythm for a combined bookkeeping, FP&A and virtual CFO engagement.
         </p>
       </div>
-      <div ref={ref} className="relative mt-12">
-        <div className="h-[2px] bg-rule" aria-hidden="true">
-          <motion.div className="h-[2px] bg-green" style={{ width: reduce ? '100%' : w }} />
+
+      <div ref={ref} className="relative mt-14">
+        {/* track with travelling marker (desktop) */}
+        <div className="relative hidden h-8 md:block" aria-hidden="true">
+          <div className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 bg-rule" />
+          <motion.div className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-green" style={{ width: reduce ? '100%' : w }} />
+          {calendar.map((c, i) => {
+            const lit = i <= step
+            return (
+              <span
+                key={c.title}
+                className={`absolute top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border-2 font-serif text-[0.8rem] transition-all duration-500 ${
+                  lit ? 'scale-110 border-green bg-green text-paper' : 'border-rule bg-paper text-muted'
+                }`}
+                style={{ left: `calc(${(i / n) * 100}% )` }}
+              >
+                {i + 1}
+              </span>
+            )
+          })}
+          {!reduce && (
+            <motion.span className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: w }}>
+              <span className="absolute -inset-3 animate-ping rounded-full bg-lime/50" />
+              <span className="relative block h-3.5 w-3.5 rounded-full border-2 border-green-ink bg-lime" />
+            </motion.span>
+          )}
         </div>
-        <ol className="grid gap-8 pt-8 sm:grid-cols-2 md:grid-cols-4">
-          {calendar.map((c, i) => (
-            <Reveal as="li" key={c.title} delay={i * 0.12}>
-                <span className="eyebrow text-[0.68rem] text-green">{c.when}</span>
+
+        <ol className="grid gap-4 pt-6 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
+          {calendar.map((c, i) => {
+            const current = i === step
+            const done = i < step
+            return (
+              <li
+                key={c.title}
+                className={`relative overflow-hidden border-l-2 p-5 transition-all duration-500 md:border-l-0 md:border-t-2 ${
+                  current
+                    ? 'border-green bg-green text-paper shadow-[0_24px_40px_-24px_rgba(27,66,57,0.6)] md:-translate-y-2'
+                    : done
+                      ? 'border-green bg-green/[0.07]'
+                      : 'border-rule bg-transparent'
+                }`}
+              >
+                <span className={`eyebrow text-[0.68rem] transition-colors ${current ? 'text-lime' : 'text-green'}`}>{c.when}</span>
                 <h3 className="display mt-3 text-3xl">{c.title}</h3>
-                <p className="mt-2 text-[0.95rem] text-muted">{c.text}</p>
-              </Reveal>
-          ))}
+                <p className={`mt-2 text-[0.95rem] transition-colors ${current ? 'text-paper/90' : 'text-muted'}`}>{c.text}</p>
+                <span
+                  className={`absolute bottom-0 left-0 h-1 bg-lime transition-all duration-700 ${current ? 'w-full' : 'w-0'}`}
+                  aria-hidden="true"
+                />
+              </li>
+            )
+          })}
         </ol>
       </div>
     </section>
