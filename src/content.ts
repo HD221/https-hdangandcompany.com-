@@ -17,7 +17,6 @@ export const firm = {
   address: ['Unit 509, Empire Edge', 'Gotri - Vasna Road, Near Nilambar Circle', 'Vadodara, Gujarat, India 390 007'],
   url: 'https://hdangandcompany.com',
   hours: 'Monday to Friday, 10:00 AM – 2:30 AM IST',
-  overlap: 'Overlaps the US and Canadian business day until 4:00 PM Eastern',
   icaiNote:
     "As per ICAI rules, Chartered Accountants are not permitted to solicit work or advertise. The information on this website is provided at the visitor's request, is for general information only and is not professional advice.",
 }

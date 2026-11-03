@@ -202,7 +202,6 @@ export function HoursBand() {
             </span>
           )}
         </p>
-        <p className="text-paper/85">{firm.overlap}</p>
       </div>
     </div>
   )
