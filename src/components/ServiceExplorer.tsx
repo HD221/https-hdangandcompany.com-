@@ -32,7 +32,7 @@ export default function ServiceExplorer() {
           <p className="eyebrow text-green">Our services</p>
           <SplitText id="our-services" text="An outsourced finance function, built around *four core services.*" className="display mt-4 text-4xl md:text-6xl" />
         </div>
-        <p className="text-muted md:col-span-5">
+        <p className="text-lg leading-relaxed text-muted md:col-span-5 md:text-xl">
           Each engagement runs on a written scope and a fixed monthly calendar. Every deliverable is reviewed by a Chartered Accountant before it reaches you.
         </p>
       </div>
