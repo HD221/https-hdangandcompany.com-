@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import {
   articles,
   calendar,
@@ -87,54 +87,154 @@ export function FinancePackCard() {
   const line = bars.slice(0, 6).map((v, i) => `${bx(i) + 11},${H - v - 8}`).join(' ')
   const fc = bars.slice(5).map((v, i) => `${bx(i + 5) + 11},${H - v - 8}`).join(' ')
   const t = (d: number) => ({ duration: reduce ? 0 : 0.7, ease, delay: reduce ? 0 : d })
+  const dot = { x: bx(5) + 11, y: H - bars[5] - 8 }
+
+  // Pointer tilt
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const rotX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 140, damping: 16 })
+  const rotY = useSpring(useTransform(mx, [-0.5, 0.5], [-8, 8]), { stiffness: 140, damping: 16 })
+
+  // Checklist highlight that moves from item to item
+  const [active, setActive] = useState(-1)
+  useEffect(() => {
+    if (reduce) return
+    let i = -1
+    const start = setTimeout(() => {
+      const id = setInterval(() => {
+        i = (i + 1) % packItems.length
+        setActive(i)
+      }, 1600)
+      cleanup = () => clearInterval(id)
+    }, 2400)
+    let cleanup = () => clearTimeout(start)
+    return () => {
+      clearTimeout(start)
+      cleanup()
+    }
+  }, [reduce])
+
   return (
     <motion.div
       className="relative"
+      style={{ perspective: 1200 }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={t(0.4)}
+      onPointerMove={(e) => {
+        if (reduce || e.pointerType !== 'mouse') return
+        const r = e.currentTarget.getBoundingClientRect()
+        mx.set((e.clientX - r.left) / r.width - 0.5)
+        my.set((e.clientY - r.top) / r.height - 0.5)
+      }}
+      onPointerLeave={() => {
+        mx.set(0)
+        my.set(0)
+      }}
     >
-      <div className="absolute inset-0 translate-x-4 translate-y-4 border border-green/25 bg-green/5" aria-hidden="true" />
-      <div className="relative bg-white p-6 shadow-[0_30px_60px_-30px_rgba(27,66,57,0.35)] md:p-8">
-        <div className="flex items-baseline justify-between gap-4">
-          <p className="display text-2xl md:text-3xl">Your monthly finance pack</p>
-          <p className="eyebrow shrink-0 text-[0.65rem] text-green">Every month</p>
-        </div>
-        <svg viewBox={`0 0 ${W} ${H}`} className="mt-6 block h-auto w-full" role="img" aria-label="Illustration of actual results with a forecast continuing the trend">
-          {[30, 60, 90].map((y) => (
-            <line key={y} x1={0} x2={W} y1={y} y2={y} stroke="rgba(33,33,33,0.08)" />
-          ))}
-          {bars.map((v, i) => (
-            <motion.rect
-              key={i}
-              x={bx(i)}
-              y={H - v}
-              width={22}
-              height={v}
-              fill={i < 6 ? 'rgba(46,107,92,0.18)' : 'rgba(195,241,138,0.75)'}
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={t(0.7 + i * 0.06)}
-              style={{ transformOrigin: `${bx(i) + 11}px ${H}px` }}
-            />
-          ))}
-          <motion.polyline points={line} fill="none" stroke="#1b4239" strokeWidth={2} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={t(1.2)} />
-          <motion.polyline points={fc} fill="none" stroke="#2e6b5c" strokeWidth={2} strokeDasharray="4 4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={t(1.9)} />
-          <motion.circle cx={bx(5) + 11} cy={H - bars[5] - 8} r={4} fill="#1b4239" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={t(1.8)} />
-        </svg>
-        <div className="mt-3 flex gap-5 text-[0.75rem] text-muted">
-          <span className="flex items-center gap-1.5"><span className="h-[2px] w-4 bg-green-ink" aria-hidden="true" /> Actual</span>
-          <span className="flex items-center gap-1.5"><span className="w-4 border-t-2 border-dashed border-green" aria-hidden="true" /> Forecast</span>
-        </div>
-        <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-2.5 text-[0.92rem] sm:grid-cols-2">
-          {packItems.map((it, i) => (
-            <motion.li key={it} className="flex items-start gap-2 text-green-ink" initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={t(1.3 + i * 0.08)}>
-              <Tick delay={1.4 + i * 0.08} />
-              {it}
-            </motion.li>
-          ))}
-        </ul>
-      </div>
+      <motion.div
+        animate={reduce ? undefined : { y: [0, -8, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+      >
+        <motion.div style={reduce ? undefined : { rotateX: rotX, rotateY: rotY, transformStyle: 'preserve-3d' }} className="relative">
+          <div className="absolute inset-0 translate-x-4 translate-y-4 border border-green/25 bg-green/5" aria-hidden="true" />
+          <div className="relative bg-white p-6 shadow-[0_30px_60px_-30px_rgba(27,66,57,0.35)] md:p-8">
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="display text-2xl md:text-3xl">Your monthly finance pack</p>
+              <p className="eyebrow flex shrink-0 items-center gap-1.5 text-[0.65rem] text-green">
+                {!reduce && (
+                  <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green opacity-60" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green" />
+                  </span>
+                )}
+                Every month
+              </p>
+            </div>
+            <svg viewBox={`0 0 ${W} ${H}`} className="mt-6 block h-auto w-full overflow-visible" role="img" aria-label="Illustration of actual results with a forecast continuing the trend">
+              {[30, 60, 90].map((y) => (
+                <line key={y} x1={0} x2={W} y1={y} y2={y} stroke="rgba(33,33,33,0.08)" />
+              ))}
+              {bars.map((v, i) => {
+                const forecast = i >= 6
+                const origin = `${bx(i) + 11}px ${H}px`
+                return (
+                  <motion.g
+                    key={i}
+                    style={{ transformOrigin: origin }}
+                    animate={reduce || !forecast ? undefined : { scaleY: [1, 1.08, 0.95, 1] }}
+                    transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 2.4 + (i - 6) * 0.4 }}
+                  >
+                    <motion.rect
+                      x={bx(i)}
+                      y={H - v}
+                      width={22}
+                      height={v}
+                      fill={forecast ? 'rgba(195,241,138,0.75)' : 'rgba(46,107,92,0.18)'}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      transition={t(0.7 + i * 0.06)}
+                      style={{ transformOrigin: origin }}
+                    />
+                  </motion.g>
+                )
+              })}
+              <motion.polyline points={line} fill="none" stroke="#1b4239" strokeWidth={2} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={t(1.2)} />
+              <motion.polyline
+                points={fc}
+                fill="none"
+                stroke="#2e6b5c"
+                strokeWidth={2}
+                strokeDasharray="4 4"
+                initial={{ opacity: 0, strokeDashoffset: 0 }}
+                animate={reduce ? { opacity: 1 } : { opacity: 1, strokeDashoffset: -16 }}
+                transition={{ opacity: t(1.9), strokeDashoffset: { duration: 1.4, repeat: Infinity, ease: 'linear' } }}
+              />
+              {!reduce && (
+                <motion.circle
+                  cx={dot.x}
+                  cy={dot.y}
+                  fill="none"
+                  stroke="#2e6b5c"
+                  strokeWidth={1.5}
+                  initial={{ r: 4, opacity: 0 }}
+                  animate={{ r: [4, 14], opacity: [0.7, 0] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut', delay: 2.2 }}
+                />
+              )}
+              <motion.circle cx={dot.x} cy={dot.y} r={4} fill="#1b4239" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={t(1.8)} />
+            </svg>
+            <div className="mt-3 flex gap-5 text-[0.75rem] text-muted">
+              <span className="flex items-center gap-1.5"><span className="h-[2px] w-4 bg-green-ink" aria-hidden="true" /> Actual</span>
+              <span className="flex items-center gap-1.5"><span className="w-4 border-t-2 border-dashed border-green" aria-hidden="true" /> Forecast</span>
+            </div>
+            <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-1 text-[0.92rem] sm:grid-cols-2">
+              {packItems.map((it, i) => (
+                <motion.li
+                  key={it}
+                  className="relative flex items-start gap-2 px-2 py-1 text-green-ink"
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={t(1.3 + i * 0.08)}
+                >
+                  {active === i && (
+                    <motion.span
+                      layoutId="pack-highlight"
+                      className="absolute inset-0 -z-0 bg-lime/45"
+                      transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <span className="relative flex items-start gap-2">
+                    <Tick delay={1.4 + i * 0.08} />
+                    {it}
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   )
 }
