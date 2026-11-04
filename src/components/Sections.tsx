@@ -209,7 +209,7 @@ export function HoursBand() {
                 {st.open && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />}
                 <span className={`relative inline-flex h-2 w-2 rounded-full ${st.open ? 'bg-lime' : 'bg-paper/50'}`} />
               </span>
-              {st.open ? 'Open now' : 'Closed now'} · {st.label} in Vadodara
+              {st.open ? 'Open now' : 'Closed now'} · {st.label} in India
             </span>
           )}
         </p>
