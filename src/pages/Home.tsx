@@ -26,10 +26,7 @@ function Hero() {
     <section className="bg-green/[0.06]">
       <div className="wrap grid items-center gap-14 pb-20 pt-10 md:grid-cols-12 md:pb-28 md:pt-16">
         <div className="md:col-span-6">
-          <motion.p className="eyebrow text-[0.72rem] text-green" {...fade(0)}>
-            ICAI-registered Chartered Accountants · India · Serving clients worldwide
-          </motion.p>
-          <SplitText as="h1" onMount delay={0.1} text="Virtual CFO, FP&A and fundraising support for *growing businesses.*" className="display mt-6 text-[3rem] sm:text-6xl lg:text-[5.4rem]" />
+          <SplitText as="h1" onMount delay={0.1} text="Virtual CFO, FP&A and fundraising support for *growing businesses.*" className="display text-[3rem] sm:text-6xl lg:text-[5.4rem]" />
           <motion.p className="mt-6 max-w-[34rem] text-lg text-muted" {...fade(0.6)}>
             A Chartered Accountant-led finance team that keeps your books, plans your numbers and prepares you for investors.
           </motion.p>
