@@ -27,13 +27,13 @@ export const legalDocs: Record<string, Doc> = {
       {
         h: 'What we collect',
         p: [
-          'When you send an enquiry we receive the details you enter: your name, business name, email address, country, the service you ask about and your message. When you subscribe to updates we receive your email address.',
+          'When you send an enquiry we receive the details you enter: your name, business name, email address, country, the service you ask about and your message. When you use the chat box we receive your name, email address, your message and the page you sent it from. When you subscribe to updates we receive your email address.',
         ],
       },
       {
         h: 'How we use it',
         p: [
-          'We use enquiry details only to respond to you and to discuss a possible engagement. We use subscriber email addresses only to send the updates you asked for. We do not sell or share your details for marketing.',
+          'We use enquiry and chat details only to respond to you and to discuss a possible engagement. We use subscriber email addresses only to send the updates you asked for. We do not sell or share your details for marketing.',
         ],
       },
       {

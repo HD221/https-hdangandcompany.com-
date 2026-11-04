@@ -34,6 +34,21 @@ export function buildMessage(body) {
       replyTo: email,
     }
   }
+  if (form === 'chat') {
+    const name = field(body, 'name', 120)
+    const message = field(body, 'message', 3000)
+    if (!name || !message) return { error: [422, 'Please add your name and a message.'] }
+    const page = field(body, 'page', 200) || '/'
+    return {
+      subject: `Website chat: ${name}`,
+      text:
+        `New chat message from hdangandcompany.com\n\n` +
+        `Name: ${name}\nEmail: ${email}\nSent from page: ${page}\n\n` +
+        `Message:\n${message}\n\n` +
+        `Reply to this email to answer the visitor.\n`,
+      replyTo: `${name} <${email}>`,
+    }
+  }
   if (form === 'enquiry') {
     const name = field(body, 'name', 120)
     const message = field(body, 'message', 5000)
