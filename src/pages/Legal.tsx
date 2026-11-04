@@ -37,6 +37,12 @@ export const legalDocs: Record<string, Doc> = {
         ],
       },
       {
+        h: 'Analytics and cookies',
+        p: [
+          'This website uses Google Analytics to understand how visitors use it, such as which pages are viewed and how visitors arrive at the site. Google Analytics uses cookies and collects information such as your approximate location, device and browser. It does not tell us who you are. You can block or delete cookies in your browser settings, or use the Google Analytics opt-out browser add-on.',
+        ],
+      },
+      {
         h: 'Client information',
         p: ['Information shared during an engagement is handled under the ICAI Code of Ethics and, where required, a non-disclosure agreement.'],
       },
