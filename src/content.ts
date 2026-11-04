@@ -27,7 +27,7 @@ export type QA = { q: string; a: string }
 
 export type Service = {
   slug: string
-  kind: 'core' | 'specialist' | 'also'
+  kind: 'core' | 'specialist'
   number: string
   name: string
   menuName: string
@@ -220,25 +220,6 @@ export const services: Service[] = [
     suitedTo: 'Expansions, new manufacturing units, new locations and real estate projects.',
     receive: 'A written report and the underlying model, for your board, partners or bank.',
     metaDescription: 'Feasibility studies and project reports: market and demand, costing, five-year projections and IRR, NPV and payback analysis.',
-  },
-  {
-    slug: 'tax-audit-compliance',
-    kind: 'also',
-    number: 'A1',
-    name: 'Tax, Audit and Compliance',
-    menuName: 'Tax, Audit and Compliance',
-    short: 'Audit and assurance, GST, income tax and TDS, cross-border receipts, business setup.',
-    bullets: [],
-    intro: 'The statutory work of a Chartered Accountant firm, for businesses and individuals.',
-    features: [
-      { title: 'Audit and assurance', text: 'Statutory audit, tax audit, internal audit and stock audit.' },
-      { title: 'GST', text: 'Registration, returns, ITC reconciliation, refunds and notices.' },
-      { title: 'Income tax and TDS', text: 'Returns for businesses, individuals and NRIs; TDS compliance.' },
-      { title: 'Cross-border receipts', text: 'LUT, FIRC / e-BRC and export-of-services compliance.' },
-      { title: 'Business setup', text: 'Entity choice, registrations and accounting systems.' },
-      { title: 'Notices and assessments', text: 'Responses to GST and income tax notices and queries.' },
-    ],
-    metaDescription: 'Tax, audit and compliance: audit and assurance, GST, income tax and TDS, cross-border receipts, business setup and notices.',
   },
 ]
 

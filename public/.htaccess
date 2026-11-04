@@ -23,6 +23,7 @@ ErrorDocument 404 /404.html
   RewriteRule ^financial-advisory-and-virtual-cfo/?$ /services/virtual-cfo [L,R=301]
   RewriteRule ^virtual-bookkeeping/?$ /services/virtual-bookkeeping [L,R=301]
   RewriteRule ^(rpa-and-data-analytics|cryptocurrency-and-blockchain)/?$ /services [L,R=301]
+  RewriteRule ^services/tax-audit-compliance/?$ /services [L,R=301]
   RewriteRule ^insights/?$ /blogs [L,R=301]
   RewriteRule ^insights/(.+?)/?$ /blogs/$1 [L,R=301]
   RewriteRule ^(wp-admin|wp-login\.php|wp-content|feed|comments)(/.*)?$ / [L,R=301]

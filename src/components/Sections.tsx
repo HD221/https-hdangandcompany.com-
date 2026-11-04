@@ -361,11 +361,11 @@ export function CoreServicesList() {
 
 export function OtherServiceCards() {
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="grid gap-4 md:grid-cols-2">
       {otherServices.map((s, i) => (
         <Reveal key={s.slug} delay={i * 0.08}>
           <Link to={`/services/${s.slug}`} className="group flex h-full flex-col bg-green/[0.07] p-7 transition-colors duration-300 hover:bg-green hover:text-paper">
-            <span className="eyebrow text-[0.65rem] text-green group-hover:text-lime">{s.kind === 'also' ? 'Also offered' : 'Specialist'}</span>
+            <span className="eyebrow text-[0.65rem] text-green group-hover:text-lime">Specialist</span>
             <span className="display mt-3 text-2xl md:text-3xl">{s.name}</span>
             <span className="mt-3 text-[0.95rem] text-muted group-hover:text-paper/90">{s.short}</span>
             <span className="link-arrow mt-auto pt-6 font-semibold">

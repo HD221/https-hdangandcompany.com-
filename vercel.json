@@ -47,6 +47,11 @@
       "source": "/insights/:slug",
       "destination": "/blogs/:slug",
       "permanent": true
+    },
+    {
+      "source": "/services/tax-audit-compliance",
+      "destination": "/services",
+      "permanent": true
     }
   ]
 }

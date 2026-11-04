@@ -15,7 +15,7 @@ export const pages: Meta[] = [
     path: '/services',
     title: 'Services' + suffix,
     description:
-      'Four core services that work as your outsourced finance function, two specialist services, and tax, audit and compliance.',
+      'Four core services that work as your outsourced finance function, and two specialist services for growth and investment decisions.',
   },
   ...services.map((s) => ({ path: `/services/${s.slug}`, title: s.name + suffix, description: s.metaDescription })),
   {
@@ -42,7 +42,7 @@ export const pages: Meta[] = [
   {
     path: '/faqs',
     title: 'Frequently asked questions' + suffix,
-    description: 'Answers on working with H Dang and Company: engagements, security, virtual CFO, FP&A, bookkeeping, fundraising readiness, and tax, audit and compliance.',
+    description: 'Answers on working with H Dang and Company: engagements, security, virtual CFO, FP&A, bookkeeping and fundraising readiness.',
   },
   {
     path: '/contact',

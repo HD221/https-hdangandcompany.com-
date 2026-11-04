@@ -1,12 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { firm, services, type Service } from '../content'
-import { ClipReveal, Picture, Reveal } from '../components/Motion'
+import { Reveal } from '../components/Motion'
 import ServiceVisual from '../components/ServiceVisuals'
 import { Button, CtaBand, FaqList, PageHero } from '../components/Sections'
 import NotFound from './NotFound'
 
-const kindLabel = (s: Service) => (s.kind === 'core' ? `${s.number} · Core service` : s.kind === 'specialist' ? 'Specialist service' : 'Also offered')
+const kindLabel = (s: Service) => (s.kind === 'core' ? `${s.number} · Core service` : 'Specialist service')
 
 function FeatureGrid({ items }: { items: Service['features'] }) {
   return (
@@ -181,15 +181,9 @@ export default function ServiceDetail() {
             <div className="lg:col-span-3">
               <FeatureGrid items={s.features} />
             </div>
-            {s.slug === 'tax-audit-compliance' ? (
-              <ClipReveal className="aspect-[4/5] self-start lg:col-span-2">
-                <Picture img={{ src: '/images/about-report', alt: 'A financial report with bar charts being reviewed at a desk', w: 940, h: 788 }} widths={[640, 940]} sizes="(min-width: 1024px) 30vw, 100vw" className="h-full w-full object-cover" />
-              </ClipReveal>
-            ) : (
-              <div className="self-start bg-green p-6 lg:col-span-2">
-                <ServiceVisual key={s.slug} slug={s.slug} tone="dark" />
-              </div>
-            )}
+            <div className="self-start bg-green p-6 lg:col-span-2">
+              <ServiceVisual key={s.slug} slug={s.slug} tone="dark" />
+            </div>
           </div>
           <InfoBoxes s={s} />
           {s.faq && (

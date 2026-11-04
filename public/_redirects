@@ -5,3 +5,4 @@
 /services/cryptocurrency-and-blockchain        /services                          301
 /insights                                      /blogs                             301
 /insights/*                                    /blogs/:splat                      301
+/services/tax-audit-compliance                 /services                          301
