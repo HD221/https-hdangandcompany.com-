@@ -7,7 +7,7 @@ const suffix = ' | H Dang and Company, Chartered Accountants'
 export const pages: Meta[] = [
   {
     path: '/',
-    title: 'H Dang and Company | Virtual CFO, FP&A and Fundraising Support',
+    title: 'H Dang and Company | Chartered Accountants in India · Virtual CFO & FP&A',
     description:
       'Chartered Accountants in India serving clients worldwide: virtual CFO, FP&A, virtual bookkeeping and fundraising readiness for growing businesses.',
   },

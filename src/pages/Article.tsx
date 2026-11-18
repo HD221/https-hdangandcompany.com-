@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { articles, firm } from '../content'
+import { articles, blogPublished, firm } from '../content'
 import { Reveal, SplitText } from '../components/Motion'
 import NotFound from './NotFound'
 
@@ -24,7 +24,8 @@ export default function Article() {
           <SplitText as="h1" onMount text={a.title} className="display mt-4 text-5xl md:text-6xl" />
           <p className="mt-5 text-lg text-muted">{a.summary}</p>
           <p className="mt-6 border-t border-rule pt-4 text-[0.9rem] text-muted">
-            {a.author} · {a.minutes} min read
+            <Link to="/the-firm" className="underline underline-offset-4 hover:text-green">{a.author}</Link> ·{' '}
+            <time dateTime={blogPublished}>Published 3 November 2026</time> · {a.minutes} min read
           </p>
         </div>
       </header>

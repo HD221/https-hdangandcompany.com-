@@ -330,6 +330,9 @@ export const faqs: QA[] = [
   { q: 'Can you start if our books are months behind?', a: 'Yes. Catch-up work is scoped separately and completed before the monthly cycle begins.' },
 ]
 
+/** Date the blog articles went live on the website (from the site's history). */
+export const blogPublished = '2026-11-03'
+
 export type ArticleBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; text: string }
