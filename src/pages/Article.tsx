@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { articles, blogPublished, firm } from '../content'
+import { articles, firm, formatDate, publishedOn } from '../content'
 import { Reveal, SplitText } from '../components/Motion'
 import NotFound from './NotFound'
 
@@ -25,7 +25,7 @@ export default function Article() {
           <p className="mt-5 text-lg text-muted">{a.summary}</p>
           <p className="mt-6 border-t border-rule pt-4 text-[0.9rem] text-muted">
             <Link to="/the-firm" className="underline underline-offset-4 hover:text-green">{a.author}</Link> ·{' '}
-            <time dateTime={blogPublished}>Published 3 November 2026</time> · {a.minutes} min read
+            <time dateTime={publishedOn(a)}>Published {formatDate(publishedOn(a))}</time> · {a.minutes} min read
           </p>
         </div>
       </header>

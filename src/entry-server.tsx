@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
 import App from './App'
 export { pages, notFound } from './routes'
-export { firm, services, articles, faqGroups, blogPublished } from './content'
+export { firm, services, articles, faqGroups, blogPublished, publishedOn } from './content'
 
 export function render(url: string) {
   return renderToString(

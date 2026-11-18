@@ -332,6 +332,9 @@ export const faqs: QA[] = [
 
 /** Date the blog articles went live on the website (from the site's history). */
 export const blogPublished = '2026-11-03'
+export const publishedOn = (a: { published?: string }) => a.published ?? blogPublished
+export const formatDate = (d: string) =>
+  new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
 
 export type ArticleBlock =
   | { type: 'p'; text: string }
@@ -341,6 +344,8 @@ export type ArticleBlock =
 
 export type Article = {
   slug: string
+  /** Publish date (YYYY-MM-DD); defaults to blogPublished */
+  published?: string
   category: string
   title: string
   summary: string

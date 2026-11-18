@@ -7,7 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dist = path.join(root, 'dist')
 const ssrDir = path.join(root, 'dist-ssr')
-const { render, pages, notFound, firm, services, articles, faqGroups, blogPublished } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
+const { render, pages, notFound, firm, services, articles, faqGroups, blogPublished, publishedOn } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 const today = new Date().toISOString().slice(0, 10)
@@ -100,8 +100,8 @@ function graph(meta) {
       headline: art.title,
       description: art.summary,
       articleSection: art.category,
-      datePublished: blogPublished,
-      dateModified: blogPublished,
+      datePublished: publishedOn(art),
+      dateModified: publishedOn(art),
       author: { '@id': PERSON },
       publisher: { '@id': ORG },
       mainEntityOfPage: { '@id': url + '#webpage' },
@@ -112,7 +112,7 @@ function graph(meta) {
     })
   }
   if (meta.path === '/blogs') {
-    g.push({ '@type': 'Blog', '@id': url + '#blog', name: 'H Dang and Company blog', url, publisher: { '@id': ORG }, blogPost: Object.keys(published).map((p) => ({ '@type': 'BlogPosting', headline: published[p].title, url: U(p), datePublished: blogPublished, author: { '@id': PERSON } })) })
+    g.push({ '@type': 'Blog', '@id': url + '#blog', name: 'H Dang and Company blog', url, publisher: { '@id': ORG }, blogPost: Object.keys(published).map((p) => ({ '@type': 'BlogPosting', headline: published[p].title, url: U(p), datePublished: publishedOn(published[p]), author: { '@id': PERSON } })) })
   }
   return { '@context': 'https://schema.org', '@graph': g }
 }
@@ -138,7 +138,7 @@ function head(meta, canonical) {
     `<meta property="og:image:width" content="940" />`,
     `<meta property="og:image:height" content="788" />`,
     `<meta property="og:image:alt" content="H Dang and Company, Chartered Accountants" />`,
-    art ? `<meta property="article:published_time" content="${blogPublished}" />` : '',
+    art ? `<meta property="article:published_time" content="${publishedOn(art)}" />` : '',
     art ? `<meta property="article:author" content="CA Hritik Dang" />` : '',
     art ? `<meta property="article:section" content="${esc(art.category)}" />` : '',
     `<meta name="twitter:card" content="summary_large_image" />`,
@@ -165,7 +165,7 @@ fs.writeFileSync(
 fs.writeFileSync(
   path.join(dist, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    pages.map((p) => `  <url><loc>${U(p.path)}</loc><lastmod>${published[p.path] ? blogPublished : today}</lastmod></url>`).join('\n') +
+    pages.map((p) => `  <url><loc>${U(p.path)}</loc><lastmod>${published[p.path] ? publishedOn(published[p.path]) : today}</lastmod></url>`).join('\n') +
     `\n</urlset>\n`,
 )
 
@@ -192,7 +192,7 @@ fs.writeFileSync(
 const block = (b) => (b.type === 'h2' ? `\n### ${b.text}\n` : b.type === 'list' ? b.items.map((i) => `- ${i}`).join('\n') : b.type === 'quote' ? `> ${b.text}` : b.text)
 const fullSvc = services.map((s) => [`## ${s.name}`, `URL: ${U(`/services/${s.slug}`)}`, '', s.intro, '', ...s.features.map((f) => `- ${f.title}: ${f.text}`), s.suitedTo ? `\nSuited to: ${s.suitedTo}` : '', s.receive ? `You receive: ${s.receive}` : '', s.platforms ? `Platforms: ${s.platforms}` : '', ...(s.faq ?? []).map((x) => `\nQ: ${x.q}\nA: ${x.a}`)].filter((x) => x !== '').join('\n')).join('\n\n')
 const fullFaq = faqGroups.map((g) => `## ${g.topic}\n` + g.items.map((x) => `\nQ: ${x.q}\nA: ${x.a}`).join('\n')).join('\n\n')
-const fullArt = Object.entries(published).map(([p, a]) => `## ${a.title}\nURL: ${U(p)}\nAuthor: ${a.author}, Chartered Accountant · Published ${blogPublished}\n\n${a.summary}\n\n${(a.keyPoints ?? []).map((k) => `- ${k}`).join('\n')}\n\n${a.body.map(block).join('\n\n')}`).join('\n\n---\n\n')
+const fullArt = Object.entries(published).map(([p, a]) => `## ${a.title}\nURL: ${U(p)}\nAuthor: ${a.author}, Chartered Accountant · Published ${publishedOn(a)}\n\n${a.summary}\n\n${(a.keyPoints ?? []).map((k) => `- ${k}`).join('\n')}\n\n${a.body.map(block).join('\n\n')}`).join('\n\n---\n\n')
 fs.writeFileSync(
   path.join(dist, 'llms-full.txt'),
   `# H Dang and Company, Chartered Accountants: full reference\n\n${intro}\n\n## Key facts\n${facts}\n\n# Services\n\n${fullSvc}\n\n# Frequently asked questions\n\n${fullFaq}\n\n# Guides\n\n${fullArt}\n\n${note}\n`,
