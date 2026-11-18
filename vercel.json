@@ -1,5 +1,5 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
@@ -52,6 +52,12 @@
       "source": "/services/tax-audit-compliance",
       "destination": "/services",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/:path*.html"
     }
   ]
 }
